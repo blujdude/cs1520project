@@ -9,16 +9,18 @@
     <body>
 		<table>
 			<tr>
-				<th>
-					<a href="home.html" class="NavBarLink">Home</a>
-					<a href="build.html" class="NavBarLink">Start Building</a>
-					<a href="login.html" class="NavBarLink">Login</a>
-				</th>
+				<th><a href="home.html" class="NavBarLink">Home</a></th>
+				<th><a href="build.html" class="NavBarLink">Start Building</a></th>
+				<th><a href="login.html" class="NavBarLink">Login</a></th>
 			<tr>
 
-
-        {% block content %}
-        {% endblock %}
+			<tr>
+				<th></th>
+				<th>
+					{% block content %}
+					{% endblock %}
+				</th>
+			<tr>
 		</table>
     </body>
 </html>
