@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    return redirect("/s/project.html", code=302)
+    return redirect("/HTML/project.html", code=302)
 
 
 if __name__ == '__main__':
