@@ -1,13 +1,20 @@
 {% extends 'template.html' %}
 {% block content %}
 
-<section>
-    <form>
-        <label>Username</label></br>
-        <input type="text", name="Username"></br>
-        <label>Password (Just a dummy don't actually put your pw in)</label></br>
-        <input type="text", name="Password"></br>
-    </form>
-</section>
+<form method="post" action="/dosignin">
+    <table>
+        <tr>
+            <td>Username</td>
+            <td><input type="input" name="username"></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" name="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" name="Sign In"></td>
+        </tr>
+    </table>
+</form>
 
 {% endblock %}

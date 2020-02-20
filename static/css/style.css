@@ -26,13 +26,17 @@ a:link:active, a:visited:active {
     display: grid;
     grid-template-columns: repeat(8, 1in);
     grid-template-rows: repeat(10, 1in);
+<<<<<<< HEAD
     background-color: #ffffff;
 	margin: auto;
 	width: 60%;
+=======
+    background-color: white;
+>>>>>>> 1603c4dce02e67e5531a8c58dbe7948f78975c84
 }
 
 .grid-item {
-    background-color: #ffffff;
+    background-color: white;
     border: 2px solid rgba(0, 0, 0, 1);
 }
 
