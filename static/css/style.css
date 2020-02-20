@@ -6,6 +6,8 @@
     border: 1px solid #2A2A2A;
     border-collapse: collapse;
     text-align:center;
+	width: 100%;
+	padding: 15px;
 }
 .body{
     
@@ -25,6 +27,8 @@ a:link:active, a:visited:active {
     grid-template-columns: repeat(8, 1in);
     grid-template-rows: repeat(10, 1in);
     background-color: #ffffff;
+	margin: auto;
+	width: 60%;
 }
 
 .grid-item {
