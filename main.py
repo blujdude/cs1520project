@@ -12,6 +12,10 @@ def root():
 def login_page():
     return flask.render_template("login.html", pagetitle = "Login")
 
+@app.route('/signup.html')
+def signup_page():
+    return flask.render_template("signup.html", pagetitle = "Sign Up")
+
 @app.route('/build.html')
 def build_page():
     return flask.render_template("build.html", pagetitle = "Build")
