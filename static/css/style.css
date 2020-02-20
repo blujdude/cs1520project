@@ -1,6 +1,6 @@
-
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 * {
-	font-family: Roboto, Arial, sans-serif;
+	font-family: Roboto;
 }
 .header{
     border: 1px solid #2A2A2A;
