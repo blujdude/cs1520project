@@ -8,26 +8,24 @@
 
     <body>
 		<table style="width:100%">
-			<div class="header">
-			<tr style="background-color:#2A2A2A;">
-				<th style="width:15%"></th>
+			<tr class="header">
+				<th class="sidebar"></th>
 				<th><a href="home.html" class="NavBarLink">Home</a></th>
 				<th><a href="build.html" class="NavBarLink">Start Building</a></th>
 				<th><a href="login.html" class="NavBarLink">Login</a></th>
 				<th><a href="signup.html" class="NavBarLink">Sign Up</a></th>
-				<th style="width:15%"></th>
+				<th class="sidebar"></th>
 			</tr>
-			</div>
 			<tr class="whitespace"></tr>
-			<div class="body">
-			<tr>
-				<th></th>
-				<th colspan="3">
-					{% block content %}
-					{% endblock %}
-				</th>
-			</tr>
-			</div>
+				<div class="body">
+					<tr>
+						<th></th>
+						<th colspan="3">
+							{% block content %}
+							{% endblock %}
+						</th>
+					</tr>
+				</div>
 		</table>
     </body>
 </html>
