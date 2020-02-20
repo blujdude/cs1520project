@@ -21,7 +21,7 @@ a:link, a:visited{
     color:ivory
 }
 a:link:active, a:visited:active {
-  color:green;
+  color:gainsboro;
 }
 .grid-container {
     display: grid;
@@ -32,7 +32,9 @@ a:link:active, a:visited:active {
 	width: 60%;
     background-color: white;
 }
-
+.sidebar{
+	width: 20%;
+}
 .grid-item {
     background-color: white;
     border: 2px solid rgba(0, 0, 0, 1);
