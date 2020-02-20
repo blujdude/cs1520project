@@ -4,6 +4,7 @@
 
 <script src="static/grid.js"></script>
 
+<form method="post" action="/register">
 <div class="grid-container" onmousedown="gridMouseDown(this)" onmouseup="gridMouseUp()">
   <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
   <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
@@ -86,5 +87,6 @@
   <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
   <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
 </div>
-
+  <input type="button" class="submit-button" value="Save Grid">
+</form>
 {% endblock %}
