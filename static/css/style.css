@@ -3,6 +3,7 @@
 	font-family: Roboto;
 }
 .header{
+	background-color:#2A2A2A;
     border: 1px solid #2A2A2A;
     border-collapse: collapse;
     text-align:center;
@@ -26,13 +27,10 @@ a:link:active, a:visited:active {
     display: grid;
     grid-template-columns: repeat(8, 1in);
     grid-template-rows: repeat(10, 1in);
-<<<<<<< HEAD
     background-color: #ffffff;
 	margin: auto;
 	width: 60%;
-=======
     background-color: white;
->>>>>>> 1603c4dce02e67e5531a8c58dbe7948f78975c84
 }
 
 .grid-item {
