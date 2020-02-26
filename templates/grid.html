@@ -1,0 +1,11 @@
+{% extends 'template.html' %}
+{% block content %}
+{{ height }}
+{{ length }}
+
+
+<form method="post" action="/savebuild">
+    <input type="submit" class="submit-button" value="Save Grid">
+</form>
+
+{% endblock %}

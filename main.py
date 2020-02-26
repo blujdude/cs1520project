@@ -1,5 +1,5 @@
 import flask
-
+from flask import request
 app = flask.Flask(__name__)
 
 
@@ -8,9 +8,19 @@ app = flask.Flask(__name__)
 def root():
     return flask.render_template("home.html", pagetitle = "Home")
 
+
 @app.route('/login.html')
 def login_page():
     return flask.render_template("login.html", pagetitle = "Login")
+
+@app.route('/grid.html', methods=['POST'])
+def grid_page():
+    if(request.method=="POST"):
+        length = request.form['length']
+        height = request.form['height']
+        return flask.render_template("grid.html", height=height, length=length)
+    else:
+        return "<html>There was an error</html>"
 
 @app.route('/signup.html')
 def signup_page():
