@@ -31,9 +31,6 @@ def register_user():
     username = flask.request.form.get('username')
     password = flask.request.form.get('password')
     email = flask.request.form.get('email')
-    #passwordhash = get_password_hash(password1)
-    #lmsdatastore.save_user(user, passwordhash)
-    #flask.session['user'] = user.username
     return flask.redirect('/build.html')
 
 @app.route('/build.html')
@@ -42,9 +39,9 @@ def build_page():
 
 @app.route('/savebuild', methods=['POST'])
 def save_build():
-	map = flask.request.form.get('map')
-	#get username
-	#save map and username
+	grid = flask.request.form.get('map')
+	username = "admin"
+	load_save_data.save_grid(username, grid)
 	return flask.redirect('/build.html')
 
 if __name__ == '__main__':
