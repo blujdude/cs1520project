@@ -19,7 +19,7 @@ def signup_page():
 @app.route('/register', methods=['POST'])
 def register_user():
     username = flask.request.form.get('username')
-    password1 = flask.request.form.get('password1')
+    password = flask.request.form.get('password')
     email = flask.request.form.get('email')
     #passwordhash = get_password_hash(password1)
     #lmsdatastore.save_user(user, passwordhash)
