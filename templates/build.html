@@ -2,91 +2,19 @@
 {% block content %}
 <h1>Build Your Map</h1>
 
-<script src="static/grid.js"></script>
-
-<form method="post" action="/savebuild">
-  <div class="grid-container" onmousedown="gridMouseDown(this)" onmouseup="gridMouseUp()" name="map">
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>
-    <div class="grid-item"  onmousedown="clickGridBlock(this)" onmouseover="mouseoverGridBlock(this)"></div>  
-  </div>
-    <input type="submit" class="submit-button" value="Save Grid">
+<div id="contain">
+<form action='/grid.html' method='post'>
+    <label for="heightField">Height in blocks:</label>
+    </br>
+    <input type="number" id="heightField" name="height" value="20">
+    </br>
+    <label for="lengthField">Length in blocks:</label>
+    </br>
+    <input type="number" id="lengthField" name="length" value="20">
+    </br>
+    <input type="submit" value="Start Building">
 </form>
+</div>
+
+
 {% endblock %}
