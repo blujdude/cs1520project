@@ -42,9 +42,11 @@ function buildCanvas(height, length){
     }
 }
 
-function beginDraw(){
+function beginDraw(event){
 
     drawing=true;
+
+    paint(event);
 
 }
 function endDraw(){
