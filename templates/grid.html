@@ -5,13 +5,13 @@
 <body onload="buildCanvas({{ height }}, {{ length }})">
 
 <form id="Tools">
-    <input type="radio" id="draw" name="Tools" value="draw" checked>
+    <input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawTool();">
     <label for="draw">Draw Tool</label><br>
-    <input type="radio" id="erase" name="Tools" value="erase">
+    <input type="radio" id="erase" name="Tools" value="erase" onclick="eraseTool();">
     <label for="erase">Erase Tool</label><br>
 </form>
 
-<canvas id="map" onmousedown="beginDraw();" ommouseup="endDraw();" onmousemove="draw();"></canvas>
+<canvas id="map" onmousedown="beginDraw()" onmouseup="endDraw()" onmousemove="paint(event)">The Map</canvas>
 
 
 
