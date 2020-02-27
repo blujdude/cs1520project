@@ -1,25 +1,27 @@
 
+const blockSize=25;
+
 var board;
 
 var fillColor="black";
 
+var drawing=false;
+
+
 function buildCanvas(height, length){
 
-    board=[];
+    board=new Array(height);
 
+    /*
     //Rows
     for(var i=0; i<height; i++){
-        var temp=[];
+        board[i]=new Array(length);
         //Cols
         for(var z=0; z<length; z++){
-            temp[z]=0;
+            board[i][z]=0;
         }
-
-        board[i]=temp;
-
     }
-
-    const blockSize=25;
+*/
 
     var canvas=document.getElementById("map");
     
@@ -42,12 +44,45 @@ function buildCanvas(height, length){
 
 function beginDraw(){
 
-
+    drawing=true;
 
 }
 function endDraw(){
 
-}
-function draw(){
+    drawing=false;
 
+}
+
+function paint(event){
+    var x=event.clientX;
+    var y=event.clientY;
+
+    if(drawing){
+        draw(x, y);
+    }
+
+}
+
+function draw(x, y){
+    var canvas=document.getElementById("map");
+    
+    x=x-canvas.getBoundingClientRect().left;
+    y=y-canvas.getBoundingClientRect().top;
+    var xIndex=Math.floor(x/blockSize);
+    var yIndex=Math.floor(y/blockSize);
+    var ctx=canvas.getContext("2d");
+
+    ctx.fillStyle=fillColor;
+
+    ctx.fillRect(xIndex*blockSize, yIndex*blockSize, blockSize, blockSize);
+    ctx.stroke();
+
+}
+
+function drawTool(){
+    fillColor="black";
+}
+
+function eraseTool(){
+    fillColor="white";
 }
