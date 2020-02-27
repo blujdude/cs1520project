@@ -9,14 +9,24 @@ function clickGridBlock(item){
 //Issues - onload event is not working.  Only one parameter is being expressed for some reason.
 function buildCanvas(height, length){
 
+    const blockSize=25;
+
     var canvas=document.getElementById("map");
     
-    // 70px blocks for now
-    canvas.width=40*length;
-    canvas.height=40*height;
+    canvas.width=blockSize*length;
+    canvas.height=blockSize*height;
 
     var ctx=canvas.getContext("2d");
+    for(var i=0; i<=canvas.height; i=i+blockSize){
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, canvas.height);
+        ctx.stroke();
+    }
 
-    ctx.fillStyle = "#42F5C2";
-    ctx.fillRect(0, 0, canvas.width, canvas.length)
+    for(var i=0; i<=canvas.width; i=i+blockSize){
+        ctx.moveTo(0, i);
+        ctx.lineTo(canvas.width, i);
+        ctx.stroke();
+    }
+
 }
