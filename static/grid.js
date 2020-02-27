@@ -1,13 +1,23 @@
-/*
-function clickGridBlock(item){
-    if(item.style.backgroundColor=="black") item.style.backgroundColor="white"
-    else item.style.backgroundColor="black"
-}
-*/
 
+var board;
 
-//Issues - onload event is not working.  Only one parameter is being expressed for some reason.
+var fillColor="black";
+
 function buildCanvas(height, length){
+
+    board=[];
+
+    //Rows
+    for(var i=0; i<height; i++){
+        var temp=[];
+        //Cols
+        for(var z=0; z<length; z++){
+            temp[z]=0;
+        }
+
+        board[i]=temp;
+
+    }
 
     const blockSize=25;
 
@@ -28,5 +38,16 @@ function buildCanvas(height, length){
         ctx.lineTo(canvas.width, i);
         ctx.stroke();
     }
+}
+
+function beginDraw(){
+
+
+
+}
+function endDraw(){
+
+}
+function draw(){
 
 }

@@ -4,7 +4,16 @@
 
 <body onload="buildCanvas({{ height }}, {{ length }})">
 
-<canvas id="map"></canvas>
+<form id="Tools">
+    <input type="radio" id="draw" name="Tools" value="draw" checked>
+    <label for="draw">Draw Tool</label><br>
+    <input type="radio" id="erase" name="Tools" value="erase">
+    <label for="erase">Erase Tool</label><br>
+</form>
+
+<canvas id="map" onmousedown="beginDraw();" ommouseup="endDraw();" onmousemove="draw();"></canvas>
+
+
 
 <form method="post" action="/savebuild">
     <input type="submit" class="submit-button" value="Save Grid">
