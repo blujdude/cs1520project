@@ -32,6 +32,7 @@ def build_page():
     map_list = load_save_data.load_maps()
     return flask.render_template("build.html", pagetitle = "Build", maps=map_list)
 
+
 @app.route('/savebuild', methods=['POST'])
 def save_build():
 	grid = flask.request.form.get('grid')
@@ -52,7 +53,7 @@ def grid_page():
 @app.route('/grid/<key>')
 def load_grid_page(key):
     map = load_save_data(key)
-    return flask.render_template("grid.html", map=map, key=map.username+map.map_name)
+    return flask.render_template("grid.html", map=map, key=key)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

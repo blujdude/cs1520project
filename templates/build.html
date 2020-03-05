@@ -16,7 +16,10 @@
 </form>
 <ul>
 {% for map in maps %}
-    <li><a href="/grid/{{key}}">{{map.map_name}}</a></li>
+    <li>
+        <p style="color:blue">
+        <a font color="blue" href="/grid/{{map.map_id}}">{{map.map_name}}</a>
+    </li>
 {% endfor %}
 </ul>
 </div>

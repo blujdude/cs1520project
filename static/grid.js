@@ -93,3 +93,7 @@ function drawTool(){
 function eraseTool(){
     fillColor="white";
 }
+
+function saveGrid(){
+    JSON.stringify(data);
+}
