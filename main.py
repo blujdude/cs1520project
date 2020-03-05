@@ -16,15 +16,6 @@ def root():
 def login_page():
     return flask.render_template("login.html", pagetitle = "Login")
 
-@app.route('/grid.html', methods=['POST'])
-def grid_page():
-    if(request.method=="POST"):
-        length = request.form['length']
-        height = request.form['height']
-        return flask.render_template("grid.html", height=height, length=length)
-    else:
-        return "<html>There was an error</html>"
-
 @app.route('/signup.html')
 def signup_page():
     return flask.render_template("signup.html", pagetitle = "Sign Up")
@@ -38,14 +29,30 @@ def register_user():
 
 @app.route('/build.html')
 def build_page():
-    return flask.render_template("build.html", pagetitle = "Build")
+    map_list = load_save_data.load_maps()
+    return flask.render_template("build.html", pagetitle = "Build", maps=map_list)
 
 @app.route('/savebuild', methods=['POST'])
 def save_build():
-	grid = flask.request.form.get('map')
+	grid = flask.request.form.get('grid')
+	map_name = flask.request.form.get('map_name')
 	username = "admin"
-	load_save_data.save_grid(username, grid)
+	load_save_data.save_grid(username, map_name, grid)
 	return flask.redirect('/build.html')
+
+@app.route('/grid.html', methods=['POST'])
+def grid_page():
+    if(request.method=="POST"):
+        length = request.form['length']
+        height = request.form['height']
+        return flask.render_template("grid.html", height=height, length=length)
+    else:
+        return "<html>There was an error</html>"
+
+@app.route('/grid/<key>')
+def load_grid_page(key):
+    map = load_save_data(key)
+    return flask.render_template("grid.html", map=map, key=map.username+map.map_name)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

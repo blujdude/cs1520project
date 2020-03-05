@@ -14,6 +14,11 @@
     </br>
     <input type="submit" value="Start Building">
 </form>
+<ul>
+{% for map in maps %}
+    <li><a href="/grid/{{key}}">{{map.map_name}}</a></li>
+{% endfor %}
+</ul>
 </div>
 
 

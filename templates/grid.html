@@ -2,7 +2,7 @@
 {% block content %}
 <script src="static/grid.js"></script>
 
-<body onload="buildCanvas({{ height }}, {{ length }})">
+<body onload="buildCanvas({{ height }}, {{ length }} {{map}})">
 
 <form id="Tools">
     <input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawTool();">
@@ -11,11 +11,12 @@
     <label for="erase">Erase Tool</label><br>
 </form>
 
-<canvas id="map" onmousedown="beginDraw(event)" onmouseup="endDraw()" onmousemove="paint(event)">The Map</canvas>
-
 
 
 <form method="post" action="/savebuild">
+	<canvas id="map" onmousedown="beginDraw(event)" onmouseup="endDraw()" onmousemove="paint(event)">The Map</canvas>
+    <label for="map_name">Name your Map:</label>
+    <input type="text" id="map_name" name="map_name"><br><br>
     <input type="submit" class="submit-button" value="Save Grid">
 </form>
 </body>

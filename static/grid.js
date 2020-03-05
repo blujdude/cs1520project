@@ -8,37 +8,42 @@ var fillColor="black";
 var drawing=false;
 
 
-function buildCanvas(height, length){
+function buildCanvas(height, length, map){
 
-    board=new Array(height);
+    if (map != null){
+        canvas = map
+    }
+    else{
+        board=new Array(height);
 
-    /*
-    //Rows
-    for(var i=0; i<height; i++){
-        board[i]=new Array(length);
-        //Cols
-        for(var z=0; z<length; z++){
-            board[i][z]=0;
+        /*
+        //Rows
+        for(var i=0; i<height; i++){
+            board[i]=new Array(length);
+            //Cols
+            for(var z=0; z<length; z++){
+                board[i][z]=0;
+            }
         }
-    }
-*/
+    */
 
-    var canvas=document.getElementById("map");
-    
-    canvas.width=blockSize*length;
-    canvas.height=blockSize*height;
+        var canvas=document.getElementById("map");
+        
+        canvas.width=blockSize*length;
+        canvas.height=blockSize*height;
 
-    var ctx=canvas.getContext("2d");
-    for(var i=0; i<=canvas.height; i=i+blockSize){
-        ctx.moveTo(i, 0);
-        ctx.lineTo(i, canvas.height);
-        ctx.stroke();
-    }
+        var ctx=canvas.getContext("2d");
+        for(var i=0; i<=canvas.height; i=i+blockSize){
+            ctx.moveTo(i, 0);
+            ctx.lineTo(i, canvas.height);
+            ctx.stroke();
+        }
 
-    for(var i=0; i<=canvas.width; i=i+blockSize){
-        ctx.moveTo(0, i);
-        ctx.lineTo(canvas.width, i);
-        ctx.stroke();
+        for(var i=0; i<=canvas.width; i=i+blockSize){
+            ctx.moveTo(0, i);
+            ctx.lineTo(canvas.width, i);
+            ctx.stroke();
+        }
     }
 }
 
