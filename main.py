@@ -21,7 +21,7 @@ def signup_page():
     return flask.render_template("signup.html", pagetitle = "Sign Up")
 
 @app.route('/register', methods=['POST'])
-def register_user():gcloud projects add-iam-policy-binding coral-box-229919 --member
+def register_user():
     username = flask.request.form.get('username')
     password = flask.request.form.get('password')
     email = flask.request.form.get('email')
