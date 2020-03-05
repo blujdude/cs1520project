@@ -1,5 +1,6 @@
 import flask
 from flask import request
+import sqlalchemy
 
 import load_save_data
 
@@ -54,6 +55,21 @@ def grid_page():
 def load_grid_page(key):
     map = load_save_data(key)
     return flask.render_template("grid.html", map=map, key=key)
+
+@app.route('/make_group.html')
+def make_group():
+    #Create connection target - Create an object in the database?
+    #Instance of the session needs to be stored in the database
+    #Connecting people - Save their info (Including socket information)
+    #Connect DM at high permission level
+    #Give players a way to connect
+    #Anybody that connects after DM is connected as a lower permission level
+    
+    
+    
+    engine=sqlalchemy.create_engine()
+    return flask.render_template("make_group.html")
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
