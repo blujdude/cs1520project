@@ -1,0 +1,13 @@
+{% extends "template.html" %}
+{% block content %}
+<script src="static/group.js"></script>
+
+<div id="buttonHolder">
+<label for="groupNumber">Group Code: </label>
+<input type="text" id="groupNumber" name="groupNumber"> </br>
+<button onclick="joinGroup()">Join Group</button>
+</div>
+
+<div id="content"> </div>
+
+{% endblock %}

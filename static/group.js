@@ -65,9 +65,39 @@ function deleteGroup(){
         var parameters = {
         'ID': groupID
     };
+    groupID=-1;
     sendJsonRequest(parameters, '/delete_group_post', function(result, targetUrl, params) {
         console.log(result);
         document.getElementById("content").innerHTML = "Group Deleted";
         document.getElementById("buttonHolder").innerHTML='<button onclick="makeGroup()">Make Group</button>';
-    })
+    });
+}
+
+function joinGroup(){
+    var parameters = {
+        'ID': document.getElementById("groupNumber").value,
+        'player': "DUMMY PLAYER"
+    };
+
+    groupID = document.getElementById("groupNumber").value;
+    sendJsonRequest(parameters, '/join_group_post', function(result, targetUrl, params){
+        console.log(result);
+        document.getElementById("content").innerHTML = "Joined Group "+result.id+"\nCurrent players: "+result.players;
+        document.getElementById("buttonHolder").innerHTML = '<button onclick="leaveGroup()">Leave Group</button>'
+    });
+
+function leaveGroup(){
+        var parameters = {
+        'ID': groupID,
+        'player': "DUMMY PLAYER"
+    };
+
+    groupID=-1;
+    sendJsonRequest(parameters, '/join_group_post', function(result, targetUrl, params){
+        console.log(result);
+        document.getElementById("content").innerHTML = "You have left the group";
+        document.getElementById("buttonHolder").innerHTML = '<label for="groupNumber">Group Code: </label>\n<input type="text" id="groupNumber" name="groupNumber"> </br>\n<button onclick="joinGroup()">Join Group</button>'
+    });
+}
+
 }

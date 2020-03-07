@@ -91,6 +91,32 @@ def del_group():
     return flask.Response()
 
 
+@app.route("/join_group_post", methods=["POST"])
+def join_group():
+    gid = request.form.get("ID")
+    player = request.form.get("player")
+    session = group.getSession(gid)
+
+    if player not in session.players:  # Add our player to the player list
+        session.players.append(player)
+
+    group.updateSession(gid, players=session.players)
+    return flask.Response(json.dumps(group.obj_to_dict(session)), mimetype='application/json')
+
+
+@app.route("/leave_group_post", methods=["POST"])
+def leave_group():
+    gid = request.form.get("ID")
+    player = request.form.get("player")
+    session = group.getSession(gid)
+
+    if player in session.players:  # Remove our player from the player list
+        session.players.remove(player)
+
+    group.updateSession(gid, players=session.players)
+    return flask.Response()
+
+
 @app.route("/make_group.html")
 def group_page():
     return flask.render_template("make_group.html")
