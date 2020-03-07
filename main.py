@@ -71,11 +71,20 @@ def make_group():
     # If there has been, they will then pull the new map (or add players to their session, or whatnot)
 
     # Insert username code here
-    username = flask.request.form.get("username")
+    username = request.form.get("username")
 
-    obj = group.initializeSession(username)
+    print(username)
+
+    obj = group.initializeSession(username)  # JSON of the object
+
+    print(obj.id)
 
     return flask.Response(json.dumps(group.obj_to_dict(obj)), mimetype='application/json')
+
+
+@app.route("/make_group")
+def group_page():
+    return flask.render_template("make_group.html")
 
 
 if __name__ == '__main__':

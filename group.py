@@ -18,6 +18,7 @@ def json_to_obj(item):  # Works for both entities and JSON
 
 def obj_to_dict(obj):  # This is so we can update entities via transforming into objects and back
     return {
+        "id": obj.id,
         "leader": obj.leader,
         "map": obj.map,
         "players": obj.players
