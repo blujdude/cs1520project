@@ -64,8 +64,9 @@ def getSession(id):  # Returns the session as an object
 def initializeSession(leader, map="DEFAULT MAP DUMMY"):  # Takes the leader as input and map
     client = datastore.Client()
     id = create_roomcode(client)
-
-    item = datastore.Entity(client.key(TYPE, id))
+    key=client.key(TYPE, id)
+    print(key)
+    item = datastore.Entity(key)
 
     item["map"] = map
     item["players"] = []
@@ -78,4 +79,5 @@ def initializeSession(leader, map="DEFAULT MAP DUMMY"):  # Takes the leader as i
 
 def delSession(id):
     client = datastore.Client()
-    client.delete(TYPE, id)
+    key = client.key(TYPE, int(id))
+    client.delete(key)

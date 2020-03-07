@@ -6,7 +6,7 @@ import load_save_data
 import group
 
 app = flask.Flask(__name__)
-
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.route('/')
 @app.route('/home.html')
@@ -71,6 +71,7 @@ def make_group():
     # If there has been, they will then pull the new map (or add players to their session, or whatnot)
 
     # Insert username code here
+    print(request.form)
     username = request.form.get("username")
 
     print(username)
@@ -82,7 +83,15 @@ def make_group():
     return flask.Response(json.dumps(group.obj_to_dict(obj)), mimetype='application/json')
 
 
-@app.route("/make_group")
+@app.route("/delete_group_post", methods=["POST"])
+def del_group():
+    gid = request.form.get("ID")
+    print(gid)
+    group.delSession(gid)
+    return flask.Response()
+
+
+@app.route("/make_group.html")
 def group_page():
     return flask.render_template("make_group.html")
 

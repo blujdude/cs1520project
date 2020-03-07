@@ -1,3 +1,5 @@
+groupID=-1;
+
 function createXmlHttp() {
     var xmlhttp;
     if (window.XMLHttpRequest) {
@@ -14,6 +16,7 @@ function createXmlHttp() {
 // this function converts a simple key-value object to a parameter string.
 function objectToParameters(obj) {
     var text = '';
+    console.log("ENTERING");
     for (var i in obj) {
         // encodeURIComponent is a built-in function that escapes to URL-safe values
         text += encodeURIComponent(i) + '=' + encodeURIComponent(obj[i]) + '&';
@@ -41,7 +44,9 @@ function sendJsonRequest(parameterObject, targetUrl, callbackFunction) {
     }
     console.log(targetUrl);
     console.log(parameterObject);
-    postParameters(xmlHttp, targetUrl, objectToParameters(parameterObject));
+    temp = objectToParameters(parameterObject);
+    console.log(temp);
+    postParameters(xmlHttp, targetUrl, temp);
 }
 
 function makeGroup() {
@@ -50,6 +55,19 @@ function makeGroup() {
     };
     sendJsonRequest(parameters, '/make_group_post', function(result, targetUrl, params) {
         console.log(result);
-        document.getElementById("content").innerHTML = "The result is " + result.id;
+        document.getElementById("content").innerHTML = "Your group code is " + result.id;
+        groupID=result.id;
+        document.getElementById("buttonHolder").innerHTML='<button onclick="deleteGroup()">Delete Group</button>';
+    })
+}
+
+function deleteGroup(){
+        var parameters = {
+        'ID': groupID
+    };
+    sendJsonRequest(parameters, '/delete_group_post', function(result, targetUrl, params) {
+        console.log(result);
+        document.getElementById("content").innerHTML = "Group Deleted";
+        document.getElementById("buttonHolder").innerHTML='<button onclick="makeGroup()">Make Group</button>';
     })
 }
