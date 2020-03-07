@@ -1,10 +1,12 @@
 import flask
 from flask import request
-import sqlalchemy
+from flask_sqlalchemy import SQLAlchemy
 
 import load_save_data
 
 app = flask.Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"]="No Idea"
+
 
 @app.route('/')
 @app.route('/home.html')
@@ -21,7 +23,7 @@ def signup_page():
     return flask.render_template("signup.html", pagetitle = "Sign Up")
 
 @app.route('/register', methods=['POST'])
-def register_user():gcloud projects add-iam-policy-binding coral-box-229919 --member
+def register_user():
     username = flask.request.form.get('username')
     password = flask.request.form.get('password')
     email = flask.request.form.get('email')
@@ -64,9 +66,6 @@ def make_group():
     #Give players a way to connect
     #Anybody that connects after DM is connected as a lower permission level
     
-    
-    
-    engine=sqlalchemy.create_engine()
     return flask.render_template("make_group.html")
 
 
