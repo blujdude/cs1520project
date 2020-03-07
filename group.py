@@ -55,19 +55,24 @@ def updateSession(id, map=None, players=None):
     return res  # Just the result for debugging purposes
 
 
-def initializeSession(obj):  # Takes a GroupSession as input
+def getSession(id):  # Returns the session as an object
+    client = datastore.Client()
+    return json_to_obj(loadItem(client, id))
+
+
+def initializeSession(leader, map="DEFAULT MAP DUMMY"):  # Takes the leader as input and map
     client = datastore.Client()
     id = create_roomcode(client)
 
     item = datastore.Entity(client.key(TYPE, id))
 
-    item["map"] = obj.map
-    item["players"] = obj.players
-    item["leader"] = obj.leader
+    item["map"] = map
+    item["players"] = []
+    item["leader"] = leader
 
     client.put(item)
 
-    return id
+    return json_to_obj(item)
 
 
 def delSession(id):

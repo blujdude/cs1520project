@@ -63,15 +63,19 @@ def load_grid_page(key):
     return flask.render_template("grid.html", map=map, key=key)
 
 
-@app.route('/make_group.html')
+@app.route('/make_group_post', methods=['POST'])
 def make_group():
     # Have a Session object that stores the map and other group metadata in the database
     # Have the DM be able to make edits to the map stored in the session with AJAX
     # Have the players ask the Session every few seconds if there has been a change.
     # If there has been, they will then pull the new map (or add players to their session, or whatnot)
 
+    # Insert username code here
+    username = flask.request.form.get("username")
 
-    return flask.render_template("make_group.html")
+    obj = group.initializeSession(username)
+
+    return flask.Response(json.dumps(group.obj_to_dict(obj)), mimetype='application/json')
 
 
 if __name__ == '__main__':
