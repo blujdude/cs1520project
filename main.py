@@ -1,11 +1,11 @@
 import flask
 from flask import request
-from flask_sqlalchemy import SQLAlchemy
-
+from google.cloud import datastore
+import json
 import load_save_data
+import group
 
 app = flask.Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"]="No Idea"
 
 
 @app.route('/')
@@ -18,9 +18,11 @@ def root():
 def login_page():
     return flask.render_template("login.html", pagetitle = "Login")
 
+
 @app.route('/signup.html')
 def signup_page():
     return flask.render_template("signup.html", pagetitle = "Sign Up")
+
 
 @app.route('/register', methods=['POST'])
 def register_user():
@@ -28,6 +30,7 @@ def register_user():
     password = flask.request.form.get('password')
     email = flask.request.form.get('email')
     return flask.redirect('/build.html')
+
 
 @app.route('/build.html')
 def build_page():
@@ -37,35 +40,37 @@ def build_page():
 
 @app.route('/savebuild', methods=['POST'])
 def save_build():
-	grid = flask.request.form.get('grid')
-	map_name = flask.request.form.get('map_name')
-	username = "admin"
-	load_save_data.save_grid(username, map_name, grid)
-	return flask.redirect('/build.html')
+    grid = flask.request.form.get('grid')
+    map_name = flask.request.form.get('map_name')
+    username = "admin"
+    load_save_data.save_grid(username, map_name, grid)
+    return flask.redirect('/build.html')
+
 
 @app.route('/grid.html', methods=['POST'])
 def grid_page():
-    if(request.method=="POST"):
+    if request.method == "POST":
         length = request.form['length']
         height = request.form['height']
         return flask.render_template("grid.html", height=height, length=length)
     else:
         return "<html>There was an error</html>"
 
+
 @app.route('/grid/<key>')
 def load_grid_page(key):
     map = load_save_data(key)
     return flask.render_template("grid.html", map=map, key=key)
 
+
 @app.route('/make_group.html')
 def make_group():
-    #Create connection target - Create an object in the database?
-    #Instance of the session needs to be stored in the database
-    #Connecting people - Save their info (Including socket information)
-    #Connect DM at high permission level
-    #Give players a way to connect
-    #Anybody that connects after DM is connected as a lower permission level
-    
+    # Have a Session object that stores the map and other group metadata in the database
+    # Have the DM be able to make edits to the map stored in the session with AJAX
+    # Have the players ask the Session every few seconds if there has been a change.
+    # If there has been, they will then pull the new map (or add players to their session, or whatnot)
+
+
     return flask.render_template("make_group.html")
 
 
