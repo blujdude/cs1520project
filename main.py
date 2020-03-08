@@ -11,17 +11,17 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 @app.route('/')
 @app.route('/home.html')
 def root():
-    return flask.render_template("home.html", pagetitle = "Home")
+    return flask.render_template("home.html", pagetitle="Home")
 
 
 @app.route('/login.html')
 def login_page():
-    return flask.render_template("login.html", pagetitle = "Login")
+    return flask.render_template("login.html", pagetitle="Login")
 
 
 @app.route('/signup.html')
 def signup_page():
-    return flask.render_template("signup.html", pagetitle = "Sign Up")
+    return flask.render_template("signup.html", pagetitle="Sign Up")
 
 
 @app.route('/register', methods=['POST'])
@@ -35,7 +35,7 @@ def register_user():
 @app.route('/build.html')
 def build_page():
     map_list = load_save_data.load_maps()
-    return flask.render_template("build.html", pagetitle = "Build", maps=map_list)
+    return flask.render_template("build.html", pagetitle="Build", maps=map_list)
 
 
 @app.route('/savebuild', methods=['POST'])
@@ -52,7 +52,7 @@ def grid_page():
     if request.method == "POST":
         length = request.form['length']
         height = request.form['height']
-        return flask.render_template("grid.html", height=height, length=length)
+        return flask.render_template("grid.html", height=height, length=length, pagetitle="Build your map")
     else:
         return "<html>There was an error</html>"
 
@@ -60,7 +60,7 @@ def grid_page():
 @app.route('/grid/<key>')
 def load_grid_page(key):
     map = load_save_data(key)
-    return flask.render_template("grid.html", map=map, key=key)
+    return flask.render_template("grid.html", map=map, key=key, pagetitle="Build your map")
 
 
 @app.route('/make_group_post', methods=['POST'])
@@ -91,6 +91,11 @@ def del_group():
     return flask.Response()
 
 
+@app.route("/join_group.html")
+def join_group_page():
+    return flask.render_template("join_group.html", pagetitle="Join a Group")
+
+
 @app.route("/join_group_post", methods=["POST"])
 def join_group():
     gid = request.form.get("ID")
@@ -109,7 +114,6 @@ def leave_group():
     gid = request.form.get("ID")
     player = request.form.get("player")
     session = group.getSession(gid)
-
     if player in session.players:  # Remove our player from the player list
         session.players.remove(player)
 

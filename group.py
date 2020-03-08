@@ -36,7 +36,7 @@ def create_roomcode(client):  # Creates a valid room code for us to use
 
 
 def loadItem(client, id):  # Loads in the entity and returns it
-    return client.get(client.key(TYPE, id))
+    return client.get(client.key(TYPE, int(id)))
 
 
 def updateSession(id, map=None, players=None):
@@ -58,14 +58,14 @@ def updateSession(id, map=None, players=None):
 
 def getSession(id):  # Returns the session as an object
     client = datastore.Client()
-    return json_to_obj(loadItem(client, id))
+    item=loadItem(client, id)
+    return json_to_obj(item)
 
 
 def initializeSession(leader, map="DEFAULT MAP DUMMY"):  # Takes the leader as input and map
     client = datastore.Client()
     id = create_roomcode(client)
-    key=client.key(TYPE, id)
-    print(key)
+    key = client.key(TYPE, id)
     item = datastore.Entity(key)
 
     item["map"] = map

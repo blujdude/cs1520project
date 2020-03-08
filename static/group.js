@@ -85,6 +85,7 @@ function joinGroup(){
         document.getElementById("content").innerHTML = "Joined Group "+result.id+"\nCurrent players: "+result.players;
         document.getElementById("buttonHolder").innerHTML = '<button onclick="leaveGroup()">Leave Group</button>'
     });
+}
 
 function leaveGroup(){
         var parameters = {
@@ -92,12 +93,9 @@ function leaveGroup(){
         'player': "DUMMY PLAYER"
     };
 
-    groupID=-1;
-    sendJsonRequest(parameters, '/join_group_post', function(result, targetUrl, params){
+    sendJsonRequest(parameters, '/leave_group_post', function(result, targetUrl, params){
         console.log(result);
         document.getElementById("content").innerHTML = "You have left the group";
-        document.getElementById("buttonHolder").innerHTML = '<label for="groupNumber">Group Code: </label>\n<input type="text" id="groupNumber" name="groupNumber"> </br>\n<button onclick="joinGroup()">Join Group</button>'
+        document.getElementById("buttonHolder").innerHTML = '<label for="groupNumber">Group Code: </label>\n<input type="text" id="groupNumber" name="groupNumber"> </br>\n<button onclick="joinGroup()" value="'+groupID+'">Join Group</button>'
     });
-}
-
 }
