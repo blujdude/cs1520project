@@ -1,8 +1,8 @@
 {% extends 'template.html' %}
 {% block content %}
-<script src="static/grid.js"></script>
+<script src="{{url_for('static', filename='grid.js')}}"></script>
 
-<body onload="buildCanvas({{ height }}, {{ length }} {{map}})">
+<body onload="buildCanvas({{ height }}, {{ length }}, {{ map }})">
 
 <form id="Tools">
     <input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawTool();">
@@ -13,10 +13,11 @@
 
 
 
-<form method="post" action="/savebuild">
+<form name= "map_form" method="post" action="/savebuild" onsubmit="saveCanvas()">
 	<canvas id="map" onmousedown="beginDraw(event)" onmouseup="endDraw()" onmousemove="paint(event)">The Map</canvas>
     <label for="map_name">Name your Map:</label>
     <input type="text" id="map_name" name="map_name"><br><br>
+    <input type="hidden" id="canvas_data" name="canvas_data" value="">
     <input type="submit" class="submit-button" value="Save Grid">
 </form>
 </body>

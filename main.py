@@ -35,11 +35,12 @@ def build_page():
 
 @app.route('/savebuild', methods=['POST'])
 def save_build():
-	grid = flask.request.form.get('grid')
-	map_name = flask.request.form.get('map_name')
-	username = "admin"
-	load_save_data.save_grid(username, map_name, grid)
-	return flask.redirect('/build.html')
+    grid = flask.request.form.get('canvas_data')
+    print(grid)
+    map_name = flask.request.form.get('map_name')
+    username = "admin"
+    load_save_data.save_grid(username, map_name, grid)
+    return flask.redirect('/build.html')
 
 @app.route('/grid.html', methods=['POST'])
 def grid_page():
@@ -52,8 +53,8 @@ def grid_page():
 
 @app.route('/grid/<key>')
 def load_grid_page(key):
-    map = load_save_data(key)
-    return flask.render_template("grid.html", map=map, key=key)
+    map = load_save_data.load_grid(key)
+    return flask.render_template("grid.html", height=20, length=20, map=map)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

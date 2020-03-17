@@ -10,10 +10,7 @@ var drawing=false;
 
 function buildCanvas(height, length, map){
 
-    if (map != null){
-        canvas = map
-    }
-    else{
+
         board=new Array(height);
 
         /*
@@ -27,23 +24,28 @@ function buildCanvas(height, length, map){
         }
     */
 
-        var canvas=document.getElementById("map");
-        
-        canvas.width=blockSize*length;
-        canvas.height=blockSize*height;
+    var canvas=document.getElementById("map");
+    canvas.width=blockSize*length;
+    canvas.height=blockSize*height;
 
-        var ctx=canvas.getContext("2d");
-        for(var i=0; i<=canvas.height; i=i+blockSize){
-            ctx.moveTo(i, 0);
-            ctx.lineTo(i, canvas.height);
-            ctx.stroke();
-        }
+    var ctx=canvas.getContext("2d");
+    for(var i=0; i<=canvas.height; i=i+blockSize){
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, canvas.height);
+        ctx.stroke();
+    }
 
-        for(var i=0; i<=canvas.width; i=i+blockSize){
-            ctx.moveTo(0, i);
-            ctx.lineTo(canvas.width, i);
-            ctx.stroke();
-        }
+    for(var i=0; i<=canvas.width; i=i+blockSize){
+        ctx.moveTo(0, i);
+        ctx.lineTo(canvas.width, i);
+        ctx.stroke();
+    }
+    if (map != null){
+        var img = new Image;
+        img.onload = function(){
+            ctx.drawImage(img,0,0);
+        };
+        img.src = map;
     }
 }
 
@@ -94,6 +96,15 @@ function eraseTool(){
     fillColor="white";
 }
 
-function saveGrid(){
-    JSON.stringify(data);
+function saveCanvas(){
+    var canvas = document.getElementById("map");
+    //var ctx=canvas.getContext("2d");
+    //var canvasContents = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height).data;
+    var canvasContents = canvas.toDataURL();
+    //var canvasContents = canvas.toJSON();
+    //canvasContents = JSON.stringify(json);
+    
+    var canvasData = document.getElementById("canvas_data");
+    canvasData.setAttribute("value", canvasContents);
+
 }
