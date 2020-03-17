@@ -1,0 +1,5 @@
+# Ignore JSON files associated with database
+*.json
+
+# Ignore __pycache__ so people stop pushing the damn thing to the repo
+__pycache__
