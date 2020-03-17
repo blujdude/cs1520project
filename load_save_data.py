@@ -22,7 +22,7 @@ def load_entity(client, entity_type, entity_id, parent_key=None):
 
 
 
-def save_grid(username, map_name, grid):
+def save_grid(username, map_name, grid, height, length):
     client = get_client()
     key = load_key(client, "GridEntity", username+map_name)
     entity = datastore.Entity(key, exclude_from_indexes=(('username', 'map_name', 'map')))
@@ -30,13 +30,17 @@ def save_grid(username, map_name, grid):
     entity['username'] = username
     entity['map_name'] = map_name
     entity['map'] = json.dumps(grid)
+    entity['height'] = height
+    entity['length'] = length
     client.put(entity)
 
 def load_grid(key):
     client = get_client()
     entity = load_entity(client, "GridEntity", key)
     map = entity.get('map')
-    return map
+    height = entity.get('height')
+    length = entity.get('length')
+    return (map, height, length)
 
 def load_maps():
     client = get_client()

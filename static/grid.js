@@ -98,11 +98,7 @@ function eraseTool(){
 
 function saveCanvas(){
     var canvas = document.getElementById("map");
-    //var ctx=canvas.getContext("2d");
-    //var canvasContents = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height).data;
     var canvasContents = canvas.toDataURL();
-    //var canvasContents = canvas.toJSON();
-    //canvasContents = JSON.stringify(json);
     
     var canvasData = document.getElementById("canvas_data");
     canvasData.setAttribute("value", canvasContents);

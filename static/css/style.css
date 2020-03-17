@@ -18,7 +18,7 @@
     padding: 100px;
 }
 a:link, a:visited{
-    color:ivory
+    color:rgb(236, 178, 51)
 }
 a:link:active, a:visited:active {
   color:gainsboro;

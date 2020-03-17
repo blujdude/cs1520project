@@ -15,9 +15,13 @@
 
 <form name= "map_form" method="post" action="/savebuild" onsubmit="saveCanvas()">
 	<canvas id="map" onmousedown="beginDraw(event)" onmouseup="endDraw()" onmousemove="paint(event)">The Map</canvas>
+    <label for="campaign">Campaign Name:</label>
+    <input type="text" id="campaign" name="campaign"><br><br>
     <label for="map_name">Name your Map:</label>
     <input type="text" id="map_name" name="map_name"><br><br>
     <input type="hidden" id="canvas_data" name="canvas_data" value="">
+    <input type="hidden" id="height" name="height" value={{height}}>
+    <input type="hidden" id="length" name="length" value={{length}}>
     <input type="submit" class="submit-button" value="Save Grid">
 </form>
 </body>

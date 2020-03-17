@@ -42,10 +42,11 @@ def build_page():
 def save_build():
 
     grid = flask.request.form.get('canvas_data')
-    grid = flask.request.form.get('grid')
     map_name = flask.request.form.get('map_name')
-    username = "admin"
-    load_save_data.save_grid(username, map_name, grid)
+    height = flask.request.form.get('height')
+    length = flask.request.form.get('length')
+    username = "admin" #use google login
+    load_save_data.save_grid(username, map_name, grid, height, length)
     return flask.redirect('/build.html')
 
 
@@ -59,11 +60,11 @@ def grid_page():
         return "<html>There was an error</html>"
 
 
-@app.route('/grid/<key>')
+@app.route('/<key>')
 def load_grid_page(key):
 
-    map = load_save_data.load_grid(key)
-    return flask.render_template("grid.html", height=20, length=20, map=map)
+    (map, height, length) = load_save_data.load_grid(key)
+    return flask.render_template("grid.html", height=height, length=length, map=map)
 
 
 
