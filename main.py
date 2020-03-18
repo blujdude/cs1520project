@@ -1,12 +1,12 @@
 import flask
 from flask import request
-from google.cloud import datastore
 import json
-import load_save_data
+import load_save_data as ls
 import group
 
 app = flask.Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 
 @app.route('/')
 @app.route('/home.html')
@@ -26,15 +26,15 @@ def signup_page():
 
 @app.route('/register', methods=['POST'])
 def register_user():
-    username = flask.request.form.get('username')
-    password = flask.request.form.get('password')
-    email = flask.request.form.get('email')
+    # username = flask.request.form.get('username')
+    # password = flask.request.form.get('password')
+    # email = flask.request.form.get('email')
     return flask.redirect('/build.html')
 
 
 @app.route('/build.html')
 def build_page():
-    map_list = load_save_data.load_maps()
+    map_list = ls.load_maps()
     return flask.render_template("build.html", pagetitle="Build", maps=map_list)
 
 
@@ -45,8 +45,8 @@ def save_build():
     map_name = flask.request.form.get('map_name')
     height = flask.request.form.get('height')
     length = flask.request.form.get('length')
-    username = "admin" #use google login
-    load_save_data.save_grid(username, map_name, grid, height, length)
+    username = "admin"  # use google login
+    ls.save_grid(username, map_name, grid, height, length)
     return flask.redirect('/build.html')
 
 
@@ -60,12 +60,11 @@ def grid_page():
         return "<html>There was an error</html>"
 
 
-@app.route('/<key>')
+@app.route('/grid/<key>')
 def load_grid_page(key):
 
-    (map, height, length) = load_save_data.load_grid(key)
+    (map, height, length) = ls.load_grid(key)
     return flask.render_template("grid.html", height=height, length=length, map=map)
-
 
 
 @app.route('/make_group_post', methods=['POST'])
@@ -128,7 +127,8 @@ def leave_group():
 
 @app.route("/make_group.html")
 def group_page():
-    return flask.render_template("make_group.html")
+    map_list = ls.load_maps()
+    return flask.render_template("make_group.html", maps=map_list)
 
 
 if __name__ == '__main__':

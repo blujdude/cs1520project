@@ -56,6 +56,7 @@ function makeGroup() {
     sendJsonRequest(parameters, '/make_group_post', function(result, targetUrl, params) {
         console.log(result);
         document.getElementById("content").innerHTML = "Your group code is " + result.id;
+        document.getElementById("map_names").style.display = "block";
         groupID=result.id;
         document.getElementById("buttonHolder").innerHTML='<button onclick="deleteGroup()">Delete Group</button>';
     })

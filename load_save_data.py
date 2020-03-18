@@ -2,8 +2,10 @@ import json
 
 from google.cloud import datastore
 
+
 def get_client():
     return datastore.Client()
+
 
 def load_key(client, entity_type, entity_id=None, parent_key=None):
 
@@ -21,7 +23,6 @@ def load_entity(client, entity_type, entity_id, parent_key=None):
     return entity
 
 
-
 def save_grid(username, map_name, grid, height, length):
     client = get_client()
     key = load_key(client, "GridEntity", username+map_name)
@@ -34,13 +35,15 @@ def save_grid(username, map_name, grid, height, length):
     entity['length'] = length
     client.put(entity)
 
+
 def load_grid(key):
     client = get_client()
     entity = load_entity(client, "GridEntity", key)
-    map = entity.get('map')
+    grid = entity.get('map')
     height = entity.get('height')
     length = entity.get('length')
-    return (map, height, length)
+    return (grid, height, length)
+
 
 def load_maps():
     client = get_client()
