@@ -63,8 +63,18 @@ def grid_page():
 @app.route('/grid/<key>')
 def load_grid_page(key):
 
-    (map, height, length) = ls.load_grid(key)
-    return flask.render_template("grid.html", height=height, length=length, map=map)
+    (map, height, length, map_name) = ls.load_grid(key)
+    return flask.render_template("mygrid.html", height=height, length=length, map=map, map_name=map_name)
+
+
+@app.route('/updategrid', methods=['POST'])
+def update_grid():
+
+    grid = flask.request.form.get('canvas_data')
+    map_name = flask.request.form.get('map_name')
+    username = "admin"  # use google login
+    ls.update_grid(username+map_name, grid)
+    return flask.redirect('/build.html')
 
 
 @app.route('/make_group_post', methods=['POST'])

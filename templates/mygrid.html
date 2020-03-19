@@ -14,15 +14,11 @@
 
 
 
-<form class = "center" name= "map_form" method="post" action="/savebuild" onsubmit="saveCanvas()">
+<form class = "center" name= "map_form" method="post" action="/updategrid" onsubmit="saveCanvas()">
+    <title>{{map_name}}</title>
 	<canvas id="map" onmousedown="beginDraw(event)" onmouseup="endDraw()" onmousemove="paint(event)">The Map</canvas><br><br>
-    <label for="campaign">Campaign Name:</label>
-    <input type="text" id="campaign" name="campaign"><br><br>
-    <label for="map_name">Name your Map:</label>
-    <input type="text" id="map_name" name="map_name"><br><br>
     <input type="hidden" id="canvas_data" name="canvas_data" value="">
-    <input type="hidden" id="height" name="height" value={{height}}>
-    <input type="hidden" id="length" name="length" value={{length}}>
+    <input type="hidden" id="map_name" name="map_name" value={{map_name}}>
     <input type="submit" class="submit-button" value="Save Grid">
 </form>
 </body>
