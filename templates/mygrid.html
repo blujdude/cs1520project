@@ -5,11 +5,16 @@
 
 <body onload="buildCanvas({{ height }}, {{ length }}, {{ map }})">
 
-<form class = "center" id="Tools">
+<form class = "center" id="Tools" method="post" action="/addfloor">
     <input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawTool();">
     <label for="draw">Draw Tool</label><br>
     <input type="radio" id="erase" name="Tools" value="erase" onclick="eraseTool();">
     <label for="erase">Erase Tool</label><br>
+    <label for="campaign">Floor Name:</label>
+    <input type="text" id="floor_name" name="floor_name"><br><br>
+    <input type="hidden" id="height" name="height" value={{height}}>
+    <input type="hidden" id="length" name="length" value={{length}}>
+    <input type="submit" class="submit-button" value="Add Floor">
 </form>
 
 
@@ -18,8 +23,8 @@
     <title>{{map_name}}</title>
 	<canvas id="map" onmousedown="beginDraw(event)" onmouseup="endDraw()" onmousemove="paint(event)">The Map</canvas><br><br>
     <input type="hidden" id="canvas_data" name="canvas_data" value="">
-    <input type="hidden" id="map_name" name="map_name" value={{map_name}}>
-    <input type="submit" class="submit-button" value="Save Grid">
+    <input type="hidden" id="map_id" name="map_id" value={{map_id}}>
+    <input type="submit" class="submit-button" value="Save Grid/Floor">
 </form>
 </body>
 {% endblock %}
