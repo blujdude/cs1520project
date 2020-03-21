@@ -70,48 +70,6 @@
       </div>
     </div>
   </header>
-  
-  <div id="id01" class="modal">
-    
-    <form class="modal-content animate" action="validate()" method="post">
-      <div class="imgcontainer">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <img src="static/images/dragon.png" alt="Avatar" class="avatar">
-      </div>
-
-      <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
-
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-          
-        <button type="submit">Login</button>
-        <label>
-          <input type="checkbox" checked="checked" name="remember"> Remember me
-        </label>
-      </div>
-
-      <div class="container" style="background-color:#f1f1f1">
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <span class="psw">Forgot <a href="#">password?</a></span>
-      </div>
-    </form>
-  </div>
-
-  <script>
-  // Get the modal
-  var modal = document.getElementById('id01');
-
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-      if (event.target == modal) {
-          modal.style.display = "none";
-      }
-  }
-  validate(){
-  }
-  </script>
 
   
     <script>
@@ -129,7 +87,62 @@
         // The ID token you need to pass to your backend:
         var id_token = googleUser.getAuthResponse().id_token;
         console.log("ID Token: " + id_token);
+
+
+        let params = {
+                    'token': id_token
+                };
+                sendJsonRequest(params, '/authtoken', function(responseObject, targetUrl, parameters) {
+                    document.getElementById('message').innerHTML = responseObject.message;
+                });
       }
+
+      function createXmlHttp() {
+                var xmlhttp;
+                if (window.XMLHttpRequest) {
+                    xmlhttp = new XMLHttpRequest();
+                } else {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                if (!(xmlhttp)) {
+                    alert("Your browser does not support AJAX!");
+                }
+                return xmlhttp;
+            }
+
+            // this function converts a simple key-value object to a parameter string.
+            function objectToParameters(obj) {
+                var text = '';
+                for (var i in obj) {
+                    // encodeURIComponent is a built-in function that escapes to URL-safe values
+                    text += encodeURIComponent(i) + '=' + encodeURIComponent(obj[i]) + '&';
+                }
+                return text;
+            }
+
+
+            function postParameters(xmlHttp, target, parameters) {
+                if (xmlHttp) {
+                    xmlHttp.open("POST", target, true); // XMLHttpRequest.open(method, url, async)
+                    var contentType = "application/x-www-form-urlencoded";
+                    xmlHttp.setRequestHeader("Content-type", contentType);
+                    xmlHttp.send(parameters);
+                }
+            }
+
+            function sendJsonRequest(parameterObject, targetUrl, callbackFunction) {
+                var xmlHttp = createXmlHttp();
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState == 4) {
+                        console.log(xmlHttp.responseText);
+                        var myObject = JSON.parse(xmlHttp.responseText);
+                        callbackFunction(myObject, targetUrl, parameterObject);
+                    }
+                }
+                console.log(targetUrl);
+                console.log(parameterObject);
+                postParameters(xmlHttp, targetUrl, objectToParameters(parameterObject));
+            }
     </script>
 
   {% block content %}
