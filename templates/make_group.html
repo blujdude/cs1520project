@@ -1,10 +1,14 @@
 {% extends "template.html" %}
 {% block content %}
-<script src="static/group.js"></script>
+<script src="{{url_for('static', filename='group.js')}}"></script>
 
 <div id="buttonHolder">
 <button onclick="makeGroup()">Make Group</button>
 </div>
+
+
+
+<canvas id="map" style="display:none;">MAP</canvas>
 
 <div id="content"> </div>
 <div style="display:none;" id="map_names">

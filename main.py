@@ -63,35 +63,22 @@ def grid_page():
 @app.route('/grid/<key>')
 def load_grid_page(key):
 
-    (map, height, length, map_name, map_id) = ls.load_grid(key)
-    return flask.render_template("mygrid.html", height=height, length=length, map=map, map_name=map_name, map_id=map_id)
+    (map, height, length, map_name) = ls.load_grid(key)
+    return flask.render_template("mygrid.html", height=height, length=length, map=map, map_name=map_name)
 
 
 @app.route('/updategrid', methods=['POST'])
 def update_grid():
 
     grid = flask.request.form.get('canvas_data')
-    #map_name = flask.request.form.get('map_name')
-    #username = "admin"  # use google login
-    map_id = flask.request.form.get('map_id')
-    ls.update_grid(map_id, grid)
-    return flask.redirect('/build.html')
-    
-
-'''
-@app.route('/addfloor', methods=['POST'])
-def add_floor():
-
-    floor_name = flask.request.form.get('floor_name')
+    map_name = flask.request.form.get('map_name')
     username = "admin"  # use google login
     ls.update_grid(username+map_name, grid)
     return flask.redirect('/build.html')
-'''
 
 
 @app.route('/make_group_post', methods=['POST'])
 def make_group():
-    # Have a Session object that stores the map and other group metadata in the database
     # Have the DM be able to make edits to the map stored in the session with AJAX
     # Have the players ask the Session every few seconds if there has been a change.
     # If there has been, they will then pull the new map (or add players to their session, or whatnot)
@@ -132,6 +119,26 @@ def join_group():
         session.players.append(player)
 
     group.updateSession(gid, players=session.players)
+    return flask.Response(json.dumps(group.obj_to_dict(session)), mimetype='application/json')
+
+
+@app.route("/leader_poll", methods=["POST"])  # Returns the session given session ID and updates the map
+def leader_poll():
+    gid = request.form.get("ID")
+
+    group.updateSession(gid, map=request.form.get("map"), height=request.form.get("height"), width=request.form.get("width"))
+
+    session = group.getSession(gid)
+
+    return flask.Response(json.dumps(group.obj_to_dict(session)), mimetype='application/json')
+
+
+@app.route("/player_poll", methods=["POST"])
+def player_poll():
+    gid=request.form.get("ID")
+    session=group.getSession(gid)
+    if(session==-1):  # Our session is no longer available
+        return flask.Response(json.dumps(session))
     return flask.Response(json.dumps(group.obj_to_dict(session)), mimetype='application/json')
 
 
