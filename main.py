@@ -100,9 +100,9 @@ def make_group():
 @app.route("/delete_group_post", methods=["POST"])
 def del_group():
     gid = request.form.get("ID")
-    print(gid)
     group.delSession(gid)
-    return flask.Response()
+    print(gid)
+    return flask.Response(json.dumps(gid))
 
 
 @app.route("/join_group.html")
@@ -132,7 +132,7 @@ def leave_group():
         session.players.remove(player)
 
     group.updateSession(gid, players=session.players)
-    return flask.Response()
+    return flask.Response(json.dumps(gid))
 
 
 @app.route("/make_group.html")
