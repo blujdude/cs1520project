@@ -1,12 +1,13 @@
 import flask
 from flask import request
 import json
-import load_save_data as ls
-import group
+# import load_save_data as ls
+# import group
 
 app = flask.Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
+STATIC_URL = '/static/'
 
 @app.route('/')
 @app.route('/home.html')
