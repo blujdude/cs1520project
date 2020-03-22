@@ -1,23 +1,27 @@
 {% extends 'template.html' %}
 {% block content %}
-
-<form method="post" action="/register">
-    <table>
-        <tr>
-            <td>Desired Username</td>
-            <td><input type="text" name="username"></td>
-        </tr>
-        <tr>
-            <td>Email Address</td>
-            <td><input type="email" name="email"></td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><input type="password" name="password1"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit"></td>
-        </tr>
-    </table>
-</form>
+<br>
+<!DOCTYPE html>
+<body style="background-color:#08090B">
+    <form method="post" action="/register">
+        <table border="1" align="center">
+            <tr>
+                <strong><td>Desired Username</td></strong>
+                <td><input type="text" name="username"></td>
+            </tr>
+            <tr>
+                <strong><td>Email Address</td></strong>
+                <td><input type="email" name="email"></td>
+            </tr>
+            <tr>
+                <strong><td>Password</td></strong>
+                <td><input type="password" name="password1"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
 {% endblock %}

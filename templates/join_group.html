@@ -1,15 +1,16 @@
 {% extends "template.html" %}
 {% block content %}
-<script src="static/group.js"></script>
-
-<div id="buttonHolder">
-<label for="groupNumber">Group Code: </label>
-<input type="text" id="groupNumber" name="groupNumber"> </br>
-<button onclick="joinGroup()">Join Group</button>
+<div class="joinGroup" align="center" style="background-color:#08090B">
+	<script src="static/group.js"></script>
+	<br><br>
+	<div id="buttonHolder">
+		<label for="groupNumber">Group Code: </label>
+		<input type="text" id="groupNumber" name="groupNumber"> 
+	 	<button onclick="joinGroup()">Join Group</button>
+	</div>
+	<br>
+	<canvas id="map" style="display:none;">MAP</canvas>
+	<div id="content"> </div>
 </div>
-
-
-<canvas id="map" style="display:none;">MAP</canvas>
-<div id="content"> </div>
 
 {% endblock %}
