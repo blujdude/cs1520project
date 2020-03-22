@@ -1,4 +1,109 @@
 {% extends 'template.html' %}
 {% block content %}
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Coders and Caverns</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!-- Aliyah's edits begin here, in case she breaks something -->
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
+  <!-- Aliyah's edits end here -->
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- Google Sign-In -->
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="674992425830-ld7o22fg72kifvb7202tb35tflo0pa0i.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+<body>
+<div class="section section-about-us" style="background-color:#08090B">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 ml-auto mr-auto text-center">
+            <h2 class="title" color>Who Are We??</h2>
+            <h5 class="description">Build your own dungeon map here! Quick and easy! Idk how to make a description lmao. -Aliyah</h5>
+          </div>
+        </div>
+        <div class="separator separator-primary"></div>
+        <div class="section-story-overview">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="image-container image-left" style="background-image: url('../assets/img/dd3.jpg')">
+                <!-- First image on the left side -->
+                <p class="blockquote blockquote-primary">"Making dungeons more accessible to all players, and easier!"
+                </p>
+              </div>
+              <!-- Second image on the left side of the article -->
+              <div class="image-container" style="background-image: url('../assets/img/dd1.jpg')"></div>
+            </div>
+            <div class="col-md-5">
+              <!-- First image on the right side, above the article -->
+              <div class="image-container image-right" style="background-image: url('../assets/img/dd2.jpg')"></div>
+              <h3>About Dungeons & Dragons</h3>
+              <p>The first Dungeons & Dragons game was played back when Gary Gygax and Dave Arneson chose to personalize the massive battles of their fantasy wargames with the exploits of individual heroes. This inspiration became the first fantasy roleplaying game, in which players are characters in an ongoing fantasy story. This new kind of game has become immensely popular over the years, and D&D has grown to include many new ways to vividly experience worlds of heroic fantasy.
+              </p>
+              <p>
+              The core of D&D is storytelling. You and your friends tell a story together, guiding your heroes through quests for treasure, battles with deadly foes, daring rescues, courtly intrigue, and much more. You can also explore the world of Dungeons & Dragons through any of the novels written by its fantasy authors, as well as engaging board games and immersive video games. All of these stories are part of D&D.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section section-team text-center" style="background-color:#08090B">
+      <div class="container">
+        <h2 class="title">Meet the Team</h2><br><br>
+        <div class="team">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="team-player">
+                <img src="../assets/img/bryce.jpg" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
+                <h4 class="title">Bryce Ryan</h4>
+                <p class="category text-primary">Back-End</p>
+                <p class="description">Likes memes</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="team-player">
+                <img src="../assets/img/lily.jpg" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
+                <h4 class="title">Lily Turner</h4>
+                <p class="category text-primary">Back-End</p>
+                <p class="description">Also likes memes</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="team-player">
+                <img src="../assets/img/john.jpg" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
+                <h4 class="title">John Hudson</h4>
+                <p class="category text-primary">Front-End</p>
+                <p class="description">Surprise! Loves memes!</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="team-player">
+                <img src="../assets/img/aliyah.jpg" alt="Thumbnail Image" class="rounded-circle img-fluid img-raised">
+                <h4 class="title">Aliyah Flores</h4>
+                <p class="category text-primary">Front-End</p>
+                <p class="description">Mmmmmmm memes</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+
 {% endblock %}
+
