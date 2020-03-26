@@ -64,7 +64,7 @@ def grid_page():
 @app.route('/grid/<key>')
 def load_grid_page(key):
 
-    (map, height, length, map_name) = ls.load_grid(key)
+    (map, height, length, map_name, map_id) = ls.load_grid(key)
     return flask.render_template("mygrid.html", height=height, length=length, map=map, map_name=map_name)
 
 
