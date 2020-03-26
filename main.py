@@ -78,6 +78,14 @@ def update_grid():
     return flask.redirect('/build.html')
 
 
+@app.route("/retrievegrid", methods=["POST"])
+def retrieve_grid():
+    key = request.form.get("key")
+    data = ls.load_grid_obj(key)
+    jsonData = json.dumps(data)
+    return flask.Response(jsonData)
+
+
 @app.route('/make_group_post', methods=['POST'])
 def make_group():
     # Have the DM be able to make edits to the map stored in the session with AJAX

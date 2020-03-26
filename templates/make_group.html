@@ -15,7 +15,7 @@
     <ul>
     {% for map in maps %}
     <li>
-        <a href="/{{map.map_id}}">{{map.map_name}}</a>
+        <button onclick="loadCanvas('{{map.map_id}}')">{{map.map_name}}</a>
     </li>
     {% endfor %}
     </ul>
