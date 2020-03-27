@@ -47,6 +47,7 @@ def save_build():
     height = flask.request.form.get('height')
     length = flask.request.form.get('length')
     username = "admin"  # use google login
+    campaign = flask.request.form.get('campaign')
     ls.save_grid(username, map_name, grid, height, length)
     return flask.redirect('/build.html')
 

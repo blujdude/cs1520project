@@ -258,3 +258,29 @@ function loadCanvas(key){
         console.log("hi2")
     });
 }
+
+function filesystem(maps) {
+    var sortedMaps = maps.sort((a, b) => (a.campaign > b.campaign) ? 1 : -1)
+
+    var myHTML = "";
+    var curCampaign = sortedMaps[0].campaign;
+    myHTML = myHTML + "<label for="+curCampaign+">"+curCampaign+"</label>\n";
+    myHTML = myHTML + "<select id="+curCampaign+">\n";
+
+    for (m in sortedMaps) {
+        if (m.campaign = curCampaign){
+            myHTML = myHTML + "<option value="+m.map_name+">"+m.map_name+"</option>\n";
+        }
+        else {
+            myHTML = myHTML + "</select>\n";
+            curCampaign = m.campaign;
+            myHTML = myHTML + "<label for="+curCampaign+">"+curCampaign+"</label>\n";
+            myHTML = myHTML + "<select id="+curCampaign+">\n";
+            myHTML = myHTML + "<option value="+m.map_name+">"+m.map_name+"</option>\n";
+        }
+    }
+    myHTML = myHTML + "</select>\n";
+
+
+    document.getElementById("map_names").innerHTML = myHTML;
+}
