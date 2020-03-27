@@ -1,4 +1,4 @@
-const blockSize=25;
+const blocksize=25;
 var playerList;
 const playerColors=["blue", "green", "purple", "yellow", "orange", "pink", "turquoise", "yellowgreen"];
 groupID=-1;
@@ -61,7 +61,7 @@ function makeGroup() {
         playerList=result.players;
         var ret="Your group code is " + result.id + "\nPlayer list: ";
         for(var i=0; i<playerList.length; i++){
-            ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>"
+            ret=ret+"<span style='color: "+playerColors[i]+";' onclick='setPC(\""+playerColors[i]+"\")'>"+playerList[i]+"</span>";
         }
         document.getElementById("content").innerHTML = ret;
         document.getElementById("map_names").style.display = "block";
@@ -87,13 +87,12 @@ function leaderPoll(){ //Any polling to be done on the DM side.  Also updates th
     };
 
     sendJsonRequest(parameters, '/leader_poll', function(result, targetUrl, params) {
-        console.log(result);
-        if(JSON.stringify(playerList)==JSON.stringify(result.players))  return; //No change in the player list.
         playerList=result.players;
         var ret="Your group code is " + result.id + "\nPlayer list: ";
         for(var i=0; i<playerList.length; i++){
-            ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>"
+            ret=ret+"<span style='color: "+playerColors[i]+";' onclick='setPC(\""+playerColors[i]+"\")'>"+playerList[i]+"</span>";
         }
+        console.log("Return value: "+ret);
         document.getElementById("content").innerHTML = ret;
     })
 }
@@ -108,7 +107,6 @@ function playerPoll(){ //Any polling to be done on the player side.
 
     sendJsonRequest(parameters, '/player_poll', function(result, targetUrl, params) {
         console.log(result);
-        if(JSON.stringify(playerList)==JSON.stringify(result.players) && result.map==document.getElementById("map").toDataURL())  return; //No change in the player list or map.
         playerList=result.players;
         var ret="Joined Group " + result.id + "\nCurrent Players: ";
         for(var i=0; i<playerList.length; i++){
@@ -205,8 +203,8 @@ function buildCanvas(height, length, map){
     */
 
     var canvas=document.getElementById("map");
-    canvas.width=blockSize*length;
-    canvas.height=blockSize*height;
+    canvas.width=blocksize*length;
+    canvas.height=blocksize*height;
 
     var ctx=canvas.getContext("2d");
     ctx.fillStyle="black";
@@ -215,13 +213,13 @@ function buildCanvas(height, length, map){
 
 
     ctx.strokeStyle="white";
-    for(var i=0; i<=canvas.width; i=i+blockSize){
+    for(var i=0; i<=canvas.width; i=i+blocksize){
         ctx.moveTo(i, 0);
         ctx.lineTo(i, canvas.height);
         ctx.stroke();
     }
 
-    for(var i=0; i<=canvas.height; i=i+blockSize){
+    for(var i=0; i<=canvas.height; i=i+blocksize){
         ctx.moveTo(0, i);
         ctx.lineTo(canvas.width, i);
         ctx.stroke();
@@ -251,17 +249,17 @@ function loadCanvas(key){
         board=new Array(height);
 
         var canvas=document.getElementById("map");
-        canvas.width=blockSize*length;
-        canvas.height=blockSize*height;
+        canvas.width=blocksize*length;
+        canvas.height=blocksize*height;
 
         var ctx=canvas.getContext("2d");
-        for(var i=0; i<=canvas.width; i=i+blockSize){
+        for(var i=0; i<=canvas.width; i=i+blocksize){
             ctx.moveTo(i, 0);
             ctx.lineTo(i, canvas.height);
             ctx.stroke();
         }
 
-        for(var i=0; i<=canvas.height; i=i+blockSize){
+        for(var i=0; i<=canvas.height; i=i+blocksize){
             ctx.moveTo(0, i);
             ctx.lineTo(canvas.width, i);
             ctx.stroke();

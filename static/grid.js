@@ -6,7 +6,8 @@ var board;
 var fillColor="white";
 
 var drawing=false;
- 
+
+var pcColor;
 
 function buildCanvas(height, length, map){
 
@@ -110,4 +111,8 @@ function saveCanvas(){
     var canvasData = document.getElementById("canvas_data");
     canvasData.setAttribute("value", canvasContents);
 
+}
+
+function setPC(color){
+    pcColor=color;
 }
