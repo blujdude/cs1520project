@@ -1,30 +1,58 @@
 {% extends 'template.html' %}
 {% block content %}
-<script src="{{url_for('static', filename='grid.js')}}"></script>
-<link rel="stylesheet" href="/static/css/grid.css">
 
-<body onload="buildCanvas({{ height }}, {{ length }}, {{ map }})">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Coders and Caverns</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!-- Aliyah's edits begin here, in case she breaks something -->
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../static/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
+  <!-- Aliyah's edits end here -->
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- Google Sign-In -->
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="674992425830-ld7o22fg72kifvb7202tb35tflo0pa0i.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+<body>
+    <div class="playerGrid" align="center" style="background-color:#08090B">
+        <script src="{{url_for('static', filename='grid.js')}}"></script>
+        <link rel="stylesheet" href="/static/css/grid.css">
 
-<form class = "center" id="Tools" method="post" action="/addfloor">
-    <input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawTool();">
-    <label for="draw">Draw Tool</label><br>
-    <input type="radio" id="erase" name="Tools" value="erase" onclick="eraseTool();">
-    <label for="erase">Erase Tool</label><br>
-    <label for="campaign">Floor Name:</label>
-    <input type="text" id="floor_name" name="floor_name"><br><br>
-    <input type="hidden" id="height" name="height" value={{height}}>
-    <input type="hidden" id="length" name="length" value={{length}}>
-    <input type="submit" class="submit-button" value="Add Floor">
-</form>
+        <body onload="buildCanvas({{ height }}, {{ length }}, {{ map }})">
 
+        <form class = "center" id="Tools" method="post" action="/addfloor">
+            <input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawTool();">
+            <label for="draw">Draw Tool</label><br>
+            <input type="radio" id="erase" name="Tools" value="erase" onclick="eraseTool();">
+            <label for="erase">Erase Tool</label><br>
+            <label for="campaign">Floor Name:</label>
+            <input type="text" id="floor_name" name="floor_name"><br><br>
+            <input type="hidden" id="height" name="height" value={{height}}>
+            <input type="hidden" id="length" name="length" value={{length}}>
+            <input type="submit" class="submit-button" value="Add Floor">
+        </form>
 
-
-<form class = "center" name= "map_form" method="post" action="/updategrid" onsubmit="saveCanvas()">
-    <title>{{map_name}}</title>
-	<canvas id="map" onmousedown="beginDraw(event)" onmouseup="endDraw()" onmousemove="paint(event)">The Map</canvas><br><br>
-    <input type="hidden" id="canvas_data" name="canvas_data" value="">
-    <input type="hidden" id="map_id" name="map_id" value={{map_id}}>
-    <input type="submit" class="submit-button" value="Save Grid/Floor">
-</form>
+        <form class = "center" name= "map_form" method="post" action="/updategrid" onsubmit="saveCanvas()">
+            <title>{{map_name}}</title>
+            <canvas id="map" onmousedown="beginDraw(event)" onmouseup="endDraw()" onmousemove="paint(event)">The Map</canvas><br><br>
+            <input type="hidden" id="canvas_data" name="canvas_data" value="">
+            <input type="hidden" id="map_id" name="map_id" value={{map_id}}>
+            <input type="submit" class="submit-button" value="Save Grid/Floor">
+        </form>
+    </div>
 </body>
+</html>
 {% endblock %}
