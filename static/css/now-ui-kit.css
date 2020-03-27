@@ -3508,7 +3508,7 @@ small {
 }
 
 a {
-  color: #6C9293;
+  color: #fff;
 }
 
 a:hover,
@@ -3587,6 +3587,7 @@ p {
   line-height: 1.61em;
   font-weight: 300;
   font-size: 1.2em;
+/*  color:#88766A;*/
 }
 
 .title {
@@ -3610,7 +3611,7 @@ p {
 .description,
 .card-description,
 .footer-big p {
-  color: #9A9A9A;
+  color: #88766A;
   font-weight: 300;
 }
 
