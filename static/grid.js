@@ -3,7 +3,7 @@ const blockSize=25;
 
 var board;
 
-var fillColor="black";
+var fillColor="white";
 
 var drawing=false;
  
@@ -29,6 +29,12 @@ function buildCanvas(height, length, map){
     canvas.height=blockSize*height;
 
     var ctx=canvas.getContext("2d");
+    ctx.fillStyle="black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.stroke();
+
+
+    ctx.strokeStyle="white";
     for(var i=0; i<=canvas.width; i=i+blockSize){
         ctx.moveTo(i, 0);
         ctx.lineTo(i, canvas.height);
@@ -90,11 +96,11 @@ function draw(x, y){
 }
 
 function drawTool(){
-    fillColor="black";
+    fillColor="white";
 }
 
 function eraseTool(){
-    fillColor="white";
+    fillColor="black";
 }
 
 function saveCanvas(){

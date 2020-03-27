@@ -192,19 +192,25 @@ function buildCanvas(height, length, map){
     canvas.height=blockSize*height;
 
     var ctx=canvas.getContext("2d");
-    for(var i=0; i<=canvas.height; i=i+blockSize){
+    ctx.fillStyle="black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.stroke();
+
+
+    ctx.strokeStyle="white";
+    for(var i=0; i<=canvas.width; i=i+blockSize){
         ctx.moveTo(i, 0);
         ctx.lineTo(i, canvas.height);
         ctx.stroke();
     }
 
-    for(var i=0; i<=canvas.width; i=i+blockSize){
+    for(var i=0; i<=canvas.height; i=i+blockSize){
         ctx.moveTo(0, i);
         ctx.lineTo(canvas.width, i);
         ctx.stroke();
     }
     if (map != null){
-        var img = new Image;ref="/{{map.map_id}}"
+        var img = new Image;
         img.onload = function(){
             ctx.drawImage(img,0,0);
         };
