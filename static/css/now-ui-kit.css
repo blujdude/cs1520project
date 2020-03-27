@@ -2680,7 +2680,7 @@ fieldset[disabled] .btn-link.active {
 
 .form-control:focus+.input-group-text,
 .form-control:focus~.input-group-text {
-  border: 1px solid #6C9293;
+  border: 1px solid #F1EADA;
   border-left: none;
   background-color: transparent;
 }
@@ -2932,7 +2932,7 @@ fieldset[disabled] .btn-link.active {
 
 .input-group .input-group-prepend .input-group-text,
 .form-group .input-group-prepend .input-group-text {
-  border-left: 1px solid #E3E3E3;
+  border-left: 1px solid #F1EADA;
 }
 
 .input-group .input-group-append .input-group-text,
@@ -3580,7 +3580,7 @@ h6,
   font-size: 0.9em;
   font-weight: 700;
   text-transform: uppercase;
-  color:#fff;
+  color:#FFFFFF;
 }
 
 p {
@@ -5847,19 +5847,19 @@ img {
 }
 
 .login-page .card-login.card-plain .form-control::-moz-placeholder {
-  color: #ebebeb;
+  color: #fff;
   opacity: 1;
   filter: alpha(opacity=100);
 }
 
 .login-page .card-login.card-plain .form-control:-moz-placeholder {
-  color: #ebebeb;
+  color: #fff;
   opacity: 1;
   filter: alpha(opacity=100);
 }
 
 .login-page .card-login.card-plain .form-control::-webkit-input-placeholder {
-  color: #ebebeb;
+  color: #fff;
   opacity: 1;
   filter: alpha(opacity=100);
 }

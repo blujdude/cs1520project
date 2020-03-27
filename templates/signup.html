@@ -1,27 +1,121 @@
-{% extends 'template.html' %}
-{% block content %}
-<br>
 <!DOCTYPE html>
-<body style="background-color:#F1EADA">
-    <form method="post" action="/register">
-        <table border="1" align="center">
-            <tr>
-                <strong><td>Desired Username</td></strong>
-                <td><input type="text" name="username"></td>
-            </tr>
-            <tr>
-                <strong><td>Email Address</td></strong>
-                <td><input type="email" name="email"></td>
-            </tr>
-            <tr>
-                <strong><td>Password</td></strong>
-                <td><input type="password" name="password1"></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="submit"></td>
-            </tr>
-        </table>
-    </form>
+<html lang="en">
+<head>
+  <title>Coders and Caverns</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!-- Aliyah's edits begin here, in case she breaks something -->
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../static/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
+  <!-- Aliyah's edits end here -->
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- Google Sign-In -->
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="674992425830-ld7o22fg72kifvb7202tb35tflo0pa0i.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+<body id="body">
+<!-- Navigation -->
+ <nav class="navbar navbar-expand-lg bg-primary fixed-top" color-on-scroll="400">
+    <div class="container">
+      <div class="dropdown button-dropdown">
+        <a href="" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
+          <span class="button-bar"></span>
+          <span class="button-bar"></span>
+          <span class="button-bar"></span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-header">Your journey begins here</a>
+          <a class="dropdown-item" href="/build.html">Build a Map</a>
+          <a class="dropdown-item" href="/join_group.html">Join a Group</a>
+          <a class="dropdown-item" href="/make_group.html">Make a Group</a>
+        </div>
+      </div>
+      <div class="navbar-translate">
+        <a class="navbar-brand" href="/home.html" title="Navigation" data-placement="bottom"> Home </a>
+        <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-bar top-bar"></span>
+          <span class="navbar-toggler-bar middle-bar"></span>
+          <span class="navbar-toggler-bar bottom-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="../static/img/blurred-image-1.jpg">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="signup.html">Register</a>
+          </li>
+          <li class="nav-item">
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar --> 
+ <div class="page-header clear-filter" filter-color="gray">
+    <div class="page-header-image" style="background-image:url(../static/img/ice.jpg)"></div>
+    <div class="content">
+      <div class="container">
+        <div class="col-md-4 ml-auto mr-auto">
+          <div class="card card-login card-plain">
+            <form class="form" method="post" action="/register">
+              <div class="card-header text-center">
+                <div class="logo-container">
+                  <img src="../static/img/dragon.png" width="100" alt="">
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="input-group no-border input-lg">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="now-ui-icons users_circle-08"></i>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Username">
+                </div>
+                <div class="input-group no-border input-lg">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="now-ui-icons text_caps-small"></i>
+                    </span>
+                  </div>
+                  <input type="text" placeholder="Password" class="form-control" />
+                </div>
+                <div class="input-group no-border input-lg">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="now-ui-icons text_caps-small"></i>
+                    </span>
+                  </div>
+                  <input type="text" placeholder="Email Address" class="form-control" />
+                </div>
+              </div>
+              <div class="card-footer text-center">
+                <a href="/register.html" class="btn btn-primary btn-round btn-lg btn-block">Create an Account</a>
+                <div class="pull-left">
+                  <h6>
+                    <a href="/login.html" class="link">Login Here</a>
+                  </h6>
+                </div>
+                <div class="pull-right">
+                  <h6>
+                    <a href="#pablo" class="link">Need Help?</a>
+                  </h6>
+                </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>
-{% endblock %}
