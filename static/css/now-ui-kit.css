@@ -3528,14 +3528,14 @@ h1 small,
   font-weight: 700;
   text-transform: uppercase;
   opacity: .8;
-  color:#fff;
+  color:#F1EADA;
 }
 
 h2,
 .h2 {
   font-size: 2.5em;
   margin-bottom: 30px;
-  color:#fff;
+  color:#6C9293;
 }
 
 h3,
@@ -3552,7 +3552,7 @@ h4,
   line-height: 1.45em;
   margin-top: 30px;
   margin-bottom: 15px;
-  color:#fff;
+  color:#6C9293;
 }
 
 h4+.category,
@@ -3567,7 +3567,7 @@ h5,
   font-size: 1.3em;
   line-height: 1.4em;
   margin-bottom: 15px;
-  color:#fff;
+  color:#88766A;
 }
 
 h5.category,
@@ -3621,7 +3621,7 @@ p {
 }
 
 .text-primary {
-  color: #6C9293 !important;
+  color: #31221D !important;
 }
 
 .text-info {
@@ -3686,7 +3686,7 @@ p {
 }
 
 body {
-  color: #fff;
+  color: #31221D;
   font-size: 14px;
   font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
@@ -5450,6 +5450,7 @@ img {
 
 .footer.footer-default {
   background-color: #6C9293;
+  color: #fff;
 }
 
 .footer nav {

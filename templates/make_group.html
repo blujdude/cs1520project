@@ -29,7 +29,7 @@
 
 <body>
     <body onload="filesystem({{maps}})">
-    <div class="makeGroup" align="center" style="background-color:#08090B">
+    <div class="makeGroup" align="center" style="background-color:#F1EADA">
         <script src="{{url_for('static', filename='group.js')}}"></script>
         <script src="{{url_for('static', filename='grid.js')}}"></script>
 
@@ -39,7 +39,7 @@
             <br><br><Br>
         </div>
 
-        <canvas id="map" name="map" style="display:none;">MAP</canvas>
+        <canvas id="map" name="map" style="display:none;" onclick="placePC(event)">MAP</canvas>
 
         <div id="content"> </div>
         <div id="map_names" style="display:none;"> </div>

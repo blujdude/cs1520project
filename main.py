@@ -158,8 +158,11 @@ def leave_group():
     gid = request.form.get("ID")
     player = request.form.get("player")
     session = group.getSession(gid)
-    if player in session.players:  # Remove our player from the player list
-        session.players.remove(player)
+    try:
+        if player in session.players:  # Remove our player from the player list
+            session.players.remove(player)
+    except AttributeError:
+        return flask.Response(json.dumps(gid))
 
     group.updateSession(gid, players=session.players)
     return flask.Response(json.dumps(gid))
