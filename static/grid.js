@@ -1,13 +1,17 @@
 
-const blockSize=25;
+const blockSize=26; //Should be even
+const drawColor = "black";
+const blankColor = "#f1eada";
 
 var board;
 
-var fillColor="white";
+var fillColor=drawColor;
 
 var drawing=false;
 
 var pcColor;
+
+var playerLocations={};
 
 function buildCanvas(height, length, map){
 
@@ -30,12 +34,12 @@ function buildCanvas(height, length, map){
     canvas.height=blockSize*height;
 
     var ctx=canvas.getContext("2d");
-    ctx.fillStyle="black";
+    ctx.fillStyle=blankColor;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.stroke();
 
 
-    ctx.strokeStyle="white";
+    ctx.strokeStyle=drawColor;
     for(var i=0; i<=canvas.width; i=i+blockSize){
         ctx.moveTo(i, 0);
         ctx.lineTo(i, canvas.height);
@@ -73,6 +77,10 @@ function endDraw(){
 function paint(event){
     var x=event.clientX;
     var y=event.clientY;
+    var canvas=document.getElementById("map");
+    
+    x=x-canvas.getBoundingClientRect().left;
+    y=y-canvas.getBoundingClientRect().top;
 
     if(drawing){
         draw(x, y);
@@ -80,28 +88,30 @@ function paint(event){
 
 }
 
-function draw(x, y){
+function draw(x, y, color=fillColor){ //x and y are already normalized wrt the canvas
     var canvas=document.getElementById("map");
     
-    x=x-canvas.getBoundingClientRect().left;
-    y=y-canvas.getBoundingClientRect().top;
-    var xIndex=Math.floor(x/blockSize);
+
+    var xIndex=Math.floor(x/blockSize); //
     var yIndex=Math.floor(y/blockSize);
     var ctx=canvas.getContext("2d");
 
-    ctx.fillStyle=fillColor;
+    ctx.fillStyle=color;
 
+    ctx.fillStyle=color;
+    ctx.lineWidth=1.5;
     ctx.fillRect(xIndex*blockSize, yIndex*blockSize, blockSize, blockSize);
+    ctx.strokeRect(xIndex*blockSize, yIndex*blockSize, blockSize, blockSize);
     ctx.stroke();
 
 }
 
 function drawTool(){
-    fillColor="white";
+    fillColor=drawColor;
 }
 
 function eraseTool(){
-    fillColor="black";
+    fillColor=blankColor;
 }
 
 function saveCanvas(){
@@ -115,4 +125,45 @@ function saveCanvas(){
 
 function setPC(color){
     pcColor=color;
+}
+
+function placePC(event){
+    //First check the color of the square
+    //Then change the color
+    //Then revert the former's square's color back to normal
+    //Then update player data structure.
+
+
+    var canvas=document.getElementById("map");
+    var ctx=canvas.getContext("2d");
+    var x=event.clientX;
+    var y=event.clientY;
+    x=x-canvas.getBoundingClientRect().left;
+    y=y-canvas.getBoundingClientRect().top;
+    
+    var xIndex=Math.floor(x/blockSize);  //Grid index of the block we are in.
+    var yIndex=Math.floor(y/blockSize);
+
+    x = xIndex*blockSize + Math.floor(blockSize/2); //Actual coord of the center of our block
+    y = yIndex*blockSize + Math.floor(blockSize/2);
+
+
+
+
+    var pixelData=ctx.getImageData(x, y, 1, 1).data; //Get the data for the pixel of the center of the block
+
+    //Turn RGB to hex.  Really complicated.
+    var hexValue="#"+("000000"+((pixelData[0] << 16) | (pixelData[1] << 8) | pixelData[2]).toString(16)).slice(-6);
+
+    if(hexValue.localeCompare(blankColor)==0){ //Good to draw.
+        ctx.beginPath();  //First, draw.
+        ctx.arc(x, y, blockSize/2-1, 0, 2 * Math.PI);
+        ctx.fillStyle = pcColor;
+        ctx.fill();
+
+        if(playerLocations.hasOwnProperty(pcColor)){ //Character is currently on the map.
+            draw(playerLocations[pcColor][0], playerLocations[pcColor][1], blankColor);  //Make old spot blank
+        }
+        playerLocations[pcColor]=[x,y];
+    }
 }

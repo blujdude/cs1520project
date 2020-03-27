@@ -1,4 +1,4 @@
-const blocksize=25;
+const blocksize=26; //Should be even
 var playerList;
 const playerColors=["blue", "green", "purple", "yellow", "orange", "pink", "turquoise", "yellowgreen"];
 groupID=-1;
@@ -113,18 +113,53 @@ function playerPoll(){ //Any polling to be done on the player side.
             ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>"
         }
         document.getElementById("content").innerHTML = ret;
-        canvas = document.getElementById("map");
+        canvas = document.getElementById("holder");  //Our comparison staging area
 
         canvas.height=result.height;
         canvas.width=result.width;
 
-        var ctx=canvas.getContext("2d"); //Update the map
+        var ctx=canvas.getContext("2d"); // Build comparison
 
         var img = new Image;
         img.onload = function(){
             ctx.drawImage(img,0,0);
         };
         img.src = result.map;
+
+
+        //Now, we must compare the staged map and current map
+
+        var newData=ctx.getImageData(0,0,canvas.width, canvas.height);
+        canvas=document.getElementById("map");
+        ctx=canvas.getContext("2d");
+        var oldData=ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+        if(newData.height==oldData.height && newData.width==oldData.width){
+            return;
+        }
+        else{ //Pixel by pixel comparison.
+            var flag=0;
+            for(var i=0; i<oldData.data.length && !flag; i=i+4){
+                var oldHex="#"+("000000"+((oldData[i] << 16) | (oldData[i+1] << 8) | oldData[i+2]).toString(16)).slice(-6);
+                var newHex="#"+("000000"+((newData[i] << 16) | (newData[i+1] << 8) | newData[i+2]).toString(16)).slice(-6);
+
+                if(oldHex.localeCompare(newHex)!=0){ //Our pixels are not the same
+                    flag=1;
+                }
+            }
+
+            if(flag==0){
+                return;
+            }
+        }
+        //refresh map
+
+        var img = new Image;
+        img.onload = function(){
+            ctx.drawImage(img,0,0);
+        };
+        img.src = result.map;
+
     })
 }
 
@@ -157,6 +192,8 @@ function joinGroup(){
         }
         document.getElementById("content").innerHTML = ret;
         document.getElementById("buttonHolder").innerHTML = '<button onclick="leaveGroup()">Leave Group</button>';
+        document.getElementById("map").height=result.height;
+        document.getElementById("map").width=result.width;
 
         var ctx=document.getElementById("map").getContext("2d"); //Get the map
         
@@ -203,23 +240,23 @@ function buildCanvas(height, length, map){
     */
 
     var canvas=document.getElementById("map");
-    canvas.width=blocksize*length;
-    canvas.height=blocksize*height;
+    canvas.width=blockSize*length;
+    canvas.height=blockSize*height;
 
     var ctx=canvas.getContext("2d");
-    ctx.fillStyle="black";
+    ctx.fillStyle="#F1EADA";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.stroke();
 
 
-    ctx.strokeStyle="white";
-    for(var i=0; i<=canvas.width; i=i+blocksize){
+    ctx.strokeStyle="black";
+    for(var i=0; i<=canvas.width; i=i+blockSize){
         ctx.moveTo(i, 0);
         ctx.lineTo(i, canvas.height);
         ctx.stroke();
     }
 
-    for(var i=0; i<=canvas.height; i=i+blocksize){
+    for(var i=0; i<=canvas.height; i=i+blockSize){
         ctx.moveTo(0, i);
         ctx.lineTo(canvas.width, i);
         ctx.stroke();
