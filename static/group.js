@@ -76,8 +76,8 @@ function leaderPoll(){ //Any polling to be done on the DM side.  Also updates th
 
     var parameters = {
         'ID': groupID,
-        'map': document.getElementById("map").toDataURL(),
-        'height': document.getElementById("map").height,
+        'map': document.getElementById("map").toDataURL(), // might need to be json.dumps(map.toDataURL)
+        'height': document.getElementById("map").height, //this needs changed (I think its in pixels rn?)
         'width': document.getElementById("map").width
     };
 
@@ -219,11 +219,11 @@ function loadCanvas(key){
     };
 
     sendJsonRequest(parameters, '/retrievegrid', function(result, targetUrl, params) {
-        console.log(result);
 
         length = result.length;
         height = result.height;
-        map = result.map;
+        map = JSON.parse(result.map);
+        console.log("hi");
 
         board=new Array(height);
 
@@ -249,5 +249,6 @@ function loadCanvas(key){
             ctx.drawImage(img,0,0);
         };
         img.src = map;
+        console.log("hi2")
     });
 }
