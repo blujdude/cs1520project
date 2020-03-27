@@ -1,5 +1,6 @@
 const blockSize=25;
 var playerList;
+const playerColors=["blue", "green", "purple", "yellow", "orange", "pink", "turquoise", "yellowgreen"];
 groupID=-1;
 
 function createXmlHttp() {
@@ -58,7 +59,11 @@ function makeGroup() {
     sendJsonRequest(parameters, '/make_group_post', function(result, targetUrl, params) {
         console.log(result);
         playerList=result.players;
-        document.getElementById("content").innerHTML = "Your group code is " + result.id + "\nPlayer list: " + playerList;
+        var ret="Your group code is " + result.id + "\nPlayer list: ";
+        for(var i=0; i<playerList.length; i++){
+            ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>"
+        }
+        document.getElementById("content").innerHTML = ret;
         document.getElementById("map_names").style.display = "block";
         groupID=result.id;
         document.getElementById("buttonHolder").innerHTML='<button onclick="deleteGroup()">Delete Group</button>';
@@ -85,7 +90,11 @@ function leaderPoll(){ //Any polling to be done on the DM side.  Also updates th
         console.log(result);
         if(JSON.stringify(playerList)==JSON.stringify(result.players))  return; //No change in the player list.
         playerList=result.players;
-        document.getElementById("content").innerHTML = "Your group code is " + result.id + "\nPlayer list: " + playerList;
+        var ret="Your group code is " + result.id + "\nPlayer list: ";
+        for(var i=0; i<playerList.length; i++){
+            ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>"
+        }
+        document.getElementById("content").innerHTML = ret;
     })
 }
 
@@ -101,8 +110,11 @@ function playerPoll(){ //Any polling to be done on the player side.
         console.log(result);
         if(JSON.stringify(playerList)==JSON.stringify(result.players) && result.map==document.getElementById("map").toDataURL())  return; //No change in the player list or map.
         playerList=result.players;
-        document.getElementById("content").innerHTML = "Joined Group " + result.id + "\nCurrent Players: " + playerList;
-        
+        var ret="Joined Group " + result.id + "\nCurrent Players: ";
+        for(var i=0; i<playerList.length; i++){
+            ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>"
+        }
+        document.getElementById("content").innerHTML = ret;
         canvas = document.getElementById("map");
 
         canvas.height=result.height;
@@ -140,7 +152,12 @@ function joinGroup(){
     groupID = document.getElementById("groupNumber").value;
     sendJsonRequest(parameters, '/join_group_post', function(result, targetUrl, params){
         console.log(result);
-        document.getElementById("content").innerHTML = "Joined Group "+result.id+"\nCurrent players: "+result.players;
+        playerList=result.players;
+        var ret="Joined Group " + result.id + "\nCurrent Players: ";
+        for(var i=0; i<playerList.length; i++){
+            ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>"
+        }
+        document.getElementById("content").innerHTML = ret;
         document.getElementById("buttonHolder").innerHTML = '<button onclick="leaveGroup()">Leave Group</button>';
 
         var ctx=document.getElementById("map").getContext("2d"); //Get the map
