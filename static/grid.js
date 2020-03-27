@@ -133,7 +133,7 @@ function placePC(event){
     //Then revert the former's square's color back to normal
     //Then update player data structure.
 
-
+    if(pcColor==null) return;
     var canvas=document.getElementById("map");
     var ctx=canvas.getContext("2d");
     var x=event.clientX;
@@ -158,8 +158,11 @@ function placePC(event){
     if(hexValue.localeCompare(blankColor)==0){ //Good to draw.
         ctx.beginPath();  //First, draw.
         ctx.arc(x, y, blockSize/2-1, 0, 2 * Math.PI);
+
         ctx.fillStyle = pcColor;
+        ctx.lineWidth=1.5;
         ctx.fill();
+        ctx.stroke();
 
         if(playerLocations.hasOwnProperty(pcColor)){ //Character is currently on the map.
             draw(playerLocations[pcColor][0], playerLocations[pcColor][1], blankColor);  //Make old spot blank
