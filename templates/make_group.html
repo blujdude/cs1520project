@@ -9,14 +9,14 @@
 
 
 
-<canvas id="map" style="display:none;">MAP</canvas>
+<canvas id="map" name="map" style="display:none;">MAP</canvas>
 
 <div id="content"> </div>
 <div style="display:none;" id="map_names">
     <ul>
     {% for map in maps %}
     <li>
-        <a href="/{{map.map_id}}">{{map.map_name}}</a>
+        <button onclick="loadCanvas('{{map.map_id}}')">{{map.map_name}}</a>
     </li>
     {% endfor %}
     </ul>

@@ -59,7 +59,7 @@ function makeGroup() {
         console.log(result);
         playerList=result.players;
         document.getElementById("content").innerHTML = "Your group code is " + result.id + "\nPlayer list: " + playerList;
-        //document.getElementById("map_names").style.display = "block";
+        document.getElementById("map_names").style.display = "block";
         groupID=result.id;
         document.getElementById("buttonHolder").innerHTML='<button onclick="deleteGroup()">Delete Group</button>';
         buildCanvas(20, 20);
@@ -76,8 +76,8 @@ function leaderPoll(){ //Any polling to be done on the DM side.  Also updates th
 
     var parameters = {
         'ID': groupID,
-        'map': document.getElementById("map").toDataURL(),
-        'height': document.getElementById("map").height,
+        'map': document.getElementById("map").toDataURL(), // might need to be json.dumps(map.toDataURL)
+        'height': document.getElementById("map").height, //this needs changed (I think its in pixels rn?)
         'width': document.getElementById("map").width
     };
 
@@ -204,10 +204,51 @@ function buildCanvas(height, length, map){
         ctx.stroke();
     }
     if (map != null){
-        var img = new Image;
+        var img = new Image;ref="/{{map.map_id}}"
         img.onload = function(){
             ctx.drawImage(img,0,0);
         };
         img.src = map;
     }
+}
+
+function loadCanvas(key){
+
+    var parameters = {
+        'key': key
+    };
+
+    sendJsonRequest(parameters, '/retrievegrid', function(result, targetUrl, params) {
+
+        length = result.length;
+        height = result.height;
+        map = JSON.parse(result.map);
+        console.log("hi");
+
+        board=new Array(height);
+
+        var canvas=document.getElementById("map");
+        canvas.width=blockSize*length;
+        canvas.height=blockSize*height;
+
+        var ctx=canvas.getContext("2d");
+        for(var i=0; i<=canvas.height; i=i+blockSize){
+            ctx.moveTo(i, 0);
+            ctx.lineTo(i, canvas.height);
+            ctx.stroke();
+        }
+
+        for(var i=0; i<=canvas.width; i=i+blockSize){
+            ctx.moveTo(0, i);
+            ctx.lineTo(canvas.width, i);
+            ctx.stroke();
+        }
+
+        var img = new Image;
+        img.onload = function(){
+            ctx.drawImage(img,0,0);
+        };
+        img.src = map;
+        console.log("hi2")
+    });
 }

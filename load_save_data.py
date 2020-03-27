@@ -57,10 +57,17 @@ def load_grid(key):
     return (grid, height, length, map_name, map_id)
 
 
+def load_grid_obj(key):
+    client = get_client()
+    entity = load_entity(client, "GridEntity", key)
+    return (entity)
+
+
 def load_maps():
     client = get_client()
     q = client.query(kind="GridEntity")
     result = []
     for map in q.fetch():
+        # make this return less stuff
         result.append(map)
     return result
