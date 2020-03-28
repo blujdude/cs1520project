@@ -8,10 +8,9 @@ from google.auth.transport import requests
 
 app = flask.Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-#app.secret_key = b'p7erewBidzuW3aZEP2t0Uw2pVznoFUt'
+app.secret_key = b'p7erewBidzuW3aZEP2t0Uw2pVznoFUt'
 
-CLIENT_ID = '674992425830-ld7o22fg72kifvb7202tb35tflo0pa0i.apps.googleusercontent.com'
-ClIENT_SECRET = 'J4yE88D4ipggLsV17nDKBYG2'
+CLIENT_ID = '674992425830-63ser9jf5ab49jo5m0ts351d7hbnk2qq.apps.googleusercontent.com'
 
 STATIC_URL = '/static/'
 
@@ -207,6 +206,9 @@ def authcode():
 
     jd.set_data(d)
     return show_json(jd)
+
+def get_user():
+    return flask.session.get('user', None)
 
 def show_page(filelname, pagedata):
     return flask.render_template(filename, pd = pagedata)
