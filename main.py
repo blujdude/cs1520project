@@ -3,9 +3,12 @@ from flask import request
 import json
 import load_save_data as ls
 import group
+from google.oauth2 import id_token
+from google.auth.transport import requests
 
 app = flask.Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.secret_key = b'p7erewBidzuW3aZEP2t0Uw2pVznoFUt'
 
 CLIENT_ID = '674992425830-ld7o22fg72kifvb7202tb35tflo0pa0i.apps.googleusercontent.com'
 ClIENT_SECRET = 'J4yE88D4ipggLsV17nDKBYG2'
@@ -175,6 +178,73 @@ def leave_group():
 def group_page():
     map_list = ls.load_maps()
     return flask.render_template("make_group.html", maps=map_list)
+
+@app.route('/authcode', methods=['POST', 'GET'])
+def authcode():
+    token = flask.request.form.get('token')
+    email = flask.request.form.get('email')
+
+    jd JsonData()
+    d = {}
+
+    try:
+        req = requests.Request()
+        idinfo = id_token.verify_oauth2_token(token, req, CLIENT_ID)
+        sources = ['accounts.google.com', 'https://accounts.google.com']
+        if idinfo['iss'] not in sources:
+            msg = 'Login token is from an unknown source. '
+            msg += 'Try logging out and logging back in.'
+            jd.add_error(msg)
+
+        userid = idinfo['sub']
+        d['userid'] = userid
+        flask.session['user'] = email
+    except ValueError as e:
+        log('Login error: ' + str(e))
+        msg = 'There was a problem validating login. '
+        msg += 'Try logging out and logging back in.'
+        jd.add_error(msg)
+
+    jd.set_data(d)
+    return show_json(jd)
+
+def show_page(filelname, pagedata):
+    return flask.render_template(filename, pd = pagedata)
+
+def show_json(json_data):
+    response_dict = {
+        'errors': json_data.errors,
+        'status': json_data.status,
+        'data': json_data.data,
+    }
+    responseJson = json.dumps(response_dict)
+    return flask.Response(responseJson, mimetype='application/json')
+
+class PageData(object):
+    def __init__(self, title):
+        self.title = title
+        self.errors =[]
+        self.p = {}
+
+        def add_error(self, error):
+            self.errors.append(error)
+
+        def set_param(self, key, value):
+            self.p[key] = value
+
+class JsonData(object):
+    def __init__(self):
+        self.errors = []
+        self.status = []
+
+    def add_error(self, error):
+        self.errors.append(error)
+
+    def add_status(self, status):
+        self.status.append(status)
+
+    def set_data(self, data):
+        self.data = data
 
 
 if __name__ == '__main__':
