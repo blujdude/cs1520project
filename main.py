@@ -7,6 +7,9 @@ import group
 app = flask.Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
+CLIENT_ID = '674992425830-ld7o22fg72kifvb7202tb35tflo0pa0i.apps.googleusercontent.com'
+ClIENT_SECRET = 'J4yE88D4ipggLsV17nDKBYG2'
+
 STATIC_URL = '/static/'
 
 @app.route('/')
