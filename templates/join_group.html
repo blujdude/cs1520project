@@ -26,19 +26,20 @@
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
-    <div class="joinGroup" align="center" style="background-color:#F1EADA">
-        <script src="static/group.js"></script>
-        <br><br>
-        <div id="buttonHolder">
-            <label for="groupNumber">Group Code: </label>
-            <input type="text" id="groupNumber" name="groupNumber"> 
-            <button onclick="joinGroup()">Join Group</button>
+  <div class="section section-join-group" align="center" style="background-color:#F1EADA">
+    <script src="static/group.js"></script>
+      <form>
+        <div id="buttonHolder" class="form-group">
+          <label for="groupNumber">Group Code:</label>
+          <input align="center" type="text" id="groupNumber" name="groupNumber">
         </div>
-        <br>
-        <canvas id="map" style="display:none;">MAP</canvas>
-        <canvas id="holder" style="display:none;">MAP</canvas>
-        <div id="content"> </div>
-    </div>
+        <button type="button" class="btn btn-primary btn-round" onclick="joinGroup()">Join Group</button>
+      </form>
+    <canvas id="map" style="display:none;">MAP</canvas>
+    <canvas id="holder" style="display:none;">MAP</canvas>
+    <div id="content"> </div>
+  </div>
 </body>
 </html>
+
 {% endblock %}
