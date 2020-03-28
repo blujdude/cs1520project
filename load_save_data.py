@@ -68,7 +68,13 @@ def load_maps():
     client = get_client()
     q = client.query(kind="GridEntity")
     result = []
+
     for map in q.fetch():
-        # make this return less stuff
-        result.append(map)
+        m = {
+            "map_id": map.get("map_id"),
+            "campaign": map.get("campaign"),
+            "map_name": map.get("map_name"),
+        }
+        result.append(json.dumps(m))
+    print(result)
     return result

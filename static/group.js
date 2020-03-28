@@ -70,7 +70,7 @@ function makeGroup() {
         buildCanvas(20, 20);
         document.getElementById("map").style.display="block";
 
-        setInterval(leaderPoll, 3000); //Poll once every 3 seconds
+        //setInterval(leaderPoll, 3000); //Poll once every 3 seconds
 
     })
 }
@@ -270,7 +270,9 @@ function buildCanvas(height, length, map){
     }
 }
 
-function loadCanvas(key){
+function loadCanvas(campaign){
+
+    var key = "admin_"+campaign+"_"+document.getElementById(campaign).value;
 
     var parameters = {
         'key': key
@@ -281,7 +283,6 @@ function loadCanvas(key){
         length = result.length;
         height = result.height;
         map = JSON.parse(result.map);
-        console.log("hi");
 
         board=new Array(height);
 
@@ -307,32 +308,39 @@ function loadCanvas(key){
             ctx.drawImage(img,0,0);
         };
         img.src = map;
-        console.log("hi2")
     });
 }
 
 function filesystem(maps) {
-    var sortedMaps = maps.sort((a, b) => (a.campaign > b.campaign) ? 1 : -1)
+
+    var sortedMaps = maps.sort((a, b) => (a.campaign < b.campaign) ? 1 : -1)
 
     var myHTML = "";
-    var curCampaign = sortedMaps[0].campaign;
-    myHTML = myHTML + "<label for="+curCampaign+">"+curCampaign+"</label>\n";
-    myHTML = myHTML + "<select id="+curCampaign+">\n";
+    var curCampaign = JSON.parse(sortedMaps[0]).campaign;
+    var pasteCampaign = '"'+curCampaign+'"';
+    myHTML = myHTML + "<label for="+pasteCampaign+">"+pasteCampaign+"</label>\n";
+    myHTML = myHTML + "<select id="+pasteCampaign+" onChange='loadCanvas("+pasteCampaign+")'>\n";
+    myHTML = myHTML + "<option value=''></option>\n";
 
-    for (m in sortedMaps) {
-        if (m.campaign = curCampaign){
+    for (var i=0; i<sortedMaps.length; i++) {
+        console.log(i);
+        m = JSON.parse(sortedMaps[i]);
+        if (m.campaign == curCampaign){
             myHTML = myHTML + "<option value="+m.map_name+">"+m.map_name+"</option>\n";
         }
         else {
             myHTML = myHTML + "</select>\n";
             curCampaign = m.campaign;
-            myHTML = myHTML + "<label for="+curCampaign+">"+curCampaign+"</label>\n";
-            myHTML = myHTML + "<select id="+curCampaign+">\n";
+            var pasteCampaign = '"'+curCampaign+'"';
+            myHTML = myHTML + "<label for="+pasteCampaign+">"+pasteCampaign+"</label>\n";
+            myHTML = myHTML + "<select id="+pasteCampaign+" onChange='loadCanvas("+pasteCampaign+")'>\n";
+            myHTML = myHTML + "<option value=''></option>\n";
             myHTML = myHTML + "<option value="+m.map_name+">"+m.map_name+"</option>\n";
         }
     }
     myHTML = myHTML + "</select>\n";
-
+    console.log(myHTML);
 
     document.getElementById("map_names").innerHTML = myHTML;
+
 }
