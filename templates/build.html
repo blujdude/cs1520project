@@ -26,29 +26,28 @@
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
-<div class="buildMap" align="center" style="background-color:#F1EADA">
-    <h1>Build Your Map</h1>
-    <div id="contain">
-    <form action='/grid.html' method='post'>
-        <label for="heightField">Height in blocks:</label>
-        </br>
-        <input type="number" id="heightField" name="height" value="20">
-        </br>
-        <label for="lengthField">Length in blocks:</label>
-        </br>
-        <input type="number" id="lengthField" name="length" value="20">
-        </br></br>
-        <input type="submit" value="Start Building">
-    </form>
-    <ul>
+<div class="section section-build-map" align="center" style="background-color:#F1EADA">
+    <h2><strong>Build your Map</strong></h2>
+    <div id="buttonHolder">
+        <form action='/grid.html' method='post'>
+            <label for="heightField">Height in blocks:</label></br>
+            <input align="center" type="number" id="heightField" name="height" value="20"></br><br>
+            <label for="lengthField">Length in blocks:</label></br>
+            <input align="center" type="number" id="lengthField" name="length" value="20">
+            </br></br>
+            <button type="submit" class="btn btn-primary btn-round">Submit</button>
+        </form>
+    </div>
+
+    <!-- Commented out this section for now -Aliyah -->
+    <!-- <ul>
     {% for map in maps %}
         <li>
             <a font color="blue" href="/grid/{{map.map_id}}">{{map.map_name}}</a>
         </li>
     {% endfor %}
-    </ul>
-    </div>
-    </div>
+    </ul> -->
+</div>
 </body>
 </html>
 {% endblock %}
