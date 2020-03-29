@@ -59,14 +59,14 @@ function makeGroup() {
     sendJsonRequest(parameters, '/make_group_post', function(result, targetUrl, params) {
         console.log(result);
         playerList=result.players;
-        var ret="Your group code is " + result.id + "\nPlayer list: ";
+        var ret="<h4>Your group code is " + result.id + "</h4>" + "<p>Player list: </p>";
         for(var i=0; i<playerList.length; i++){
             ret=ret+"<span style='color: "+playerColors[i]+";' onclick='setPC(\""+playerColors[i]+"\")'>"+playerList[i]+"</span>";
         }
         document.getElementById("content").innerHTML = ret;
         document.getElementById("map_names").style.display = "block";
         groupID=result.id;
-        document.getElementById("buttonHolder").innerHTML='<button onclick="deleteGroup()">Delete Group</button>';
+        document.getElementById("buttonHolder").innerHTML='<button class="submit-button btn btn-primary btn-round" onclick="deleteGroup()">Delete Group</button>';
         buildCanvas(20, 20);
         document.getElementById("map").style.display="block";
 
@@ -88,7 +88,7 @@ function leaderPoll(){ //Any polling to be done on the DM side.  Also updates th
 
     sendJsonRequest(parameters, '/leader_poll', function(result, targetUrl, params) {
         playerList=result.players;
-        var ret="Your group code is " + result.id + "\nPlayer list: ";
+        var ret="<h4>Your group code is " + result.id + "</h4>" + "<p>Player list: </p>";
         for(var i=0; i<playerList.length; i++){
             ret=ret+"<span style='color: "+playerColors[i]+";' onclick='setPC(\""+playerColors[i]+"\")'>"+playerList[i]+"</span>";
         }
@@ -186,7 +186,7 @@ function joinGroup(){
     sendJsonRequest(parameters, '/join_group_post', function(result, targetUrl, params){
         console.log(result);
         playerList=result.players;
-        var ret="Joined Group " + result.id + "\nCurrent Players: ";
+        var ret="<h4>Joined Group " + result.id + "</h4>" + "Current Players: ";
         for(var i=0; i<playerList.length; i++){
             ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>"
         }
