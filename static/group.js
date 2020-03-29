@@ -272,7 +272,7 @@ function buildCanvas(height, length, map){
 
 function loadCanvas(campaign){
 
-    var key = "admin_"+campaign+"_"+document.getElementById(campaign).value;
+    var key = campaign+"_"+document.getElementById(campaign).value;
 
     var parameters = {
         'key': key
