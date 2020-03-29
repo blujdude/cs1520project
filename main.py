@@ -100,8 +100,7 @@ def make_group():
     # If there has been, they will then pull the new map (or add players to their session, or whatnot)
 
     # Insert username code here
-    print(request.form)
-    username = request.form.get("username")
+    username = get_user()
 
     print(username)
 
@@ -128,7 +127,7 @@ def join_group_page():
 @app.route("/join_group_post", methods=["POST"])
 def join_group():
     gid = request.form.get("ID")
-    player = request.form.get("player")
+    player = get_user()
     session = group.getSession(gid)
 
     if player not in session.players:  # Add our player to the player list
@@ -161,7 +160,7 @@ def player_poll():
 @app.route("/leave_group_post", methods=["POST"])
 def leave_group():
     gid = request.form.get("ID")
-    player = request.form.get("player")
+    player = get_user()
     session = group.getSession(gid)
     try:
         if player in session.players:  # Remove our player from the player list
@@ -199,7 +198,7 @@ def authcode():
         d['userid'] = userid
         flask.session['user'] = email
     except ValueError as e:
-        log('Login error: ' + str(e))
+        print('Login error: ' + str(e))
         msg = 'There was a problem validating login. '
         msg += 'Try logging out and logging back in.'
         jd.add_error(msg)
@@ -210,7 +209,7 @@ def authcode():
 def get_user():
     return flask.session.get('user', None)
 
-def show_page(filelname, pagedata):
+def show_page(filename, pagedata):
     return flask.render_template(filename, pd = pagedata)
 
 def show_json(json_data):
