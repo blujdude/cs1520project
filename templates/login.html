@@ -1,30 +1,141 @@
-{% extends 'template.html' %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Coders and Caverns</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!-- Aliyah's edits begin here, in case she breaks something -->
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../static/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
+  <!-- Aliyah's edits end here -->
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- Google Sign-In -->
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="674992425830-ld7o22fg72kifvb7202tb35tflo0pa0i.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+<body class="login-page sidebar-collapse">
 
-<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+<!-- Navigation -->
+ <nav class="navbar navbar-expand-lg bg-primary fixed-top" color-on-scroll="400">
+    <div class="container">
+      <div class="dropdown button-dropdown">
+        <a href="" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
+          <span class="button-bar"></span>
+          <span class="button-bar"></span>
+          <span class="button-bar"></span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-header">Your journey begins here</a>
+          <a class="dropdown-item" href="/build.html">Build a Map</a>
+          <a class="dropdown-item" href="/join_group.html">Join a Group</a>
+          <a class="dropdown-item" href="/make_group.html">Make a Group</a>
+        </div>
+      </div>
+      <div class="navbar-translate">
+        <a class="navbar-brand" href="/home.html" title="Navigation" data-placement="bottom"> Home </a>
+        <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-bar top-bar"></span>
+          <span class="navbar-toggler-bar middle-bar"></span>
+          <span class="navbar-toggler-bar bottom-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="../static/img/blurred-image-1.jpg">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="signup.html">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Log In</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar --> 
 
-<script>
-function onSignIn(googleUser) {
-    let profile = googleUser.getBasicProfile();
-    let idToken = googleUser.getAuthResponse().id_token;
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('ID Token: ' + idToken);
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+   <div class="page-header clear-filter">
+    <div class="page-header-image" style="background-image:url(../static/img/ice.jpg)"></div>
+    <div class="content">
+      <div class="container">
+        <div class="col-md-4 ml-auto mr-auto">
+          <div class="card card-login card-plain">
+            <form class="form" method="post" action="/register">
+              <div class="card-header text-center">
+                <div class="logo-container">
+                  <img src="../static/img/dragon.png" width="100" alt="">
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="g-signin2" align="center" data-onsuccess="onSignIn" data-theme="dark"></div>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    let params = {
-        'token': idToken,
-        'email': profile.getEmail()
-    }
+    <script>
+    function onSignIn(googleUser) {
+        let profile = googleUser.getBasicProfile();
+        let idToken = googleUser.getAuthResponse().id_token;
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('ID Token: ' + idToken);
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
-    sendJsonPost(params, '/authcode', function(responseObject, targetUrl, parameters){
-        if(responseObject.errors.length == 0){
-            document.location ='/';
-
+        let params = {
+            'token': idToken,
+            'email': profile.getEmail()
         }
-    });
-}
-</script>
 
-{% endblock %}
+        sendJsonPost(params, '/authcode', function(responseObject, targetUrl, parameters){
+            if(responseObject.errors.length == 0){
+                document.location ='/';
+
+            }
+        });
+    }
+    </script>
+
+ <!-- Footer -->
+    <footer class="footer footer-default">
+      <div class=" container ">
+        <nav>
+          <ul>
+            <li>
+              <a href="https://www.creative-tim.com">
+                Credits
+              </a>
+            </li>
+            <li>
+              <a href="http://presentation.creative-tim.com">
+                About Us
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div class="copyright" id="copyright">
+          &copy;
+          <script>
+            document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+          </script> Coders and Caverns 2020
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+
+    </div>
+</body>
+</html>
