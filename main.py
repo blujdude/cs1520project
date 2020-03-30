@@ -17,17 +17,15 @@ STATIC_URL = '/static/'
 @app.route('/')
 @app.route('/home.html')
 def root():
-    pd = PageData('Home', get_user())
-    return show_page("home.html", pd)
+    return flask.render_template("home.html", pagetitle="Home")
 
 
 @app.route('/login.html')
 def login_page():
-    pd = PageData('Log In', get_user())
-    return show_page("login.html", pd)
+    return flask.render_template("login.html", pagetitle="Login")
 
-#Should be unnecessary
-"""@app.route('/signup.html')
+
+@app.route('/signup.html')
 def signup_page():
     return flask.render_template("signup.html", pagetitle="Sign Up")
 
@@ -37,7 +35,7 @@ def register_user():
     # username = flask.request.form.get('username')
     # password = flask.request.form.get('password')
     # email = flask.request.form.get('email')
-    return flask.redirect('/build.html')"""
+    return flask.redirect('/build.html')
 
 
 @app.route('/build.html')
