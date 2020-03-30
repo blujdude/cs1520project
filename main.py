@@ -210,7 +210,7 @@ def authcode():
 def get_user():
     return flask.session.get('user', None)
 
-def show_page(filelname, pagedata):
+def show_page(filename, pagedata):
     return flask.render_template(filename, pd = pagedata)
 
 def show_json(json_data):
@@ -248,6 +248,10 @@ class JsonData(object):
     def set_data(self, data):
         self.data = data
 
+def log(msg):
+    """Log a simple message."""
+
+    print('main: %s' % msg)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
