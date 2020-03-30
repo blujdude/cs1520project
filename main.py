@@ -40,7 +40,7 @@ def register_user():
 
 @app.route('/build.html')
 def build_page():
-    map_list = ls.load_maps(get_user())
+    map_list = ls.load_maps(get_user().email)
     return flask.render_template("build.html", pagetitle="Build", maps=map_list)
 
 
@@ -51,7 +51,7 @@ def save_build():
     map_name = flask.request.form.get('map_name')
     height = flask.request.form.get('height')
     length = flask.request.form.get('length')
-    username = get_user()
+    username = get_user().email
     campaign = flask.request.form.get('campaign')
     ls.save_grid(username, map_name, grid, height, length, campaign)
     return flask.redirect('/build.html')
@@ -88,7 +88,7 @@ def update_grid():
 @app.route("/retrievegrid", methods=["POST"])
 def retrieve_grid():
     partial_key = request.form.get("key")
-    username = get_user()
+    username = get_user().email
     key = username + "_" + partial_key
     data = ls.load_grid_obj(key)
     jsonData = json.dumps(data)
