@@ -108,7 +108,7 @@ function playerPoll(){ //Any polling to be done on the player side.
     sendJsonRequest(parameters, '/player_poll', function(result, targetUrl, params) {
         console.log(result);
         playerList=result.players;
-        var ret="Joined Group " + result.id + "\nCurrent Players: ";
+        var ret="<h4>Joined Group " + result.id + "</h4>" + "Current Players: ";
         for(var i=0; i<playerList.length; i++){
             ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>"
         }
@@ -170,8 +170,8 @@ function deleteGroup(){
     groupID=-1;
     sendJsonRequest(parameters, '/delete_group_post', function(result, targetUrl, params) {
         console.log(result);
-        document.getElementById("content").innerHTML = "Group Deleted";
-        document.getElementById("buttonHolder").innerHTML='<button onclick="makeGroup()">Make Group</button>';
+        document.getElementById("content").innerHTML = "<p>Group Deleted</p>";
+        document.getElementById("buttonHolder").innerHTML='<button class="submit-button btn btn-primary btn-round" onclick="makeGroup()">Make Group</button>';
         document.getElementById("map").style.display="none";
     });
 }
@@ -186,12 +186,12 @@ function joinGroup(){
     sendJsonRequest(parameters, '/join_group_post', function(result, targetUrl, params){
         console.log(result);
         playerList=result.players;
-        var ret="<h4>Joined Group " + result.id + "</h4>" + "Current Players: ";
+        var ret="<h4>Joined Group " + result.id + "</h4>" + "<p>Current Players: " + "</p>";
         for(var i=0; i<playerList.length; i++){
             ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>"
         }
         document.getElementById("content").innerHTML = ret;
-        document.getElementById("buttonHolder").innerHTML = '<button onclick="leaveGroup()">Leave Group</button>';
+        document.getElementById("buttonHolder").innerHTML = '<button class="submit-button btn btn-primary btn-round" onclick="leaveGroup()">Leave Group</button>';
         document.getElementById("map").height=result.height;
         document.getElementById("map").width=result.width;
 
@@ -217,9 +217,9 @@ function leaveGroup(){
 
     sendJsonRequest(parameters, '/leave_group_post', function(result, targetUrl, params){
         console.log(result);
-        document.getElementById("content").innerHTML = "You have left the group";
+        document.getElementById("content").innerHTML = "<h4>You have left the group</h4>";
         document.getElementById("map").style.display="none";
-        document.getElementById("buttonHolder").innerHTML = '<label for="groupNumber">Group Code: </label>\n<input type="text" id="groupNumber" name="groupNumber"> </br>\n<button onclick="joinGroup()" value="'+groupID+'">Join Group</button>'
+        document.getElementById("buttonHolder").innerHTML = '<p for="groupNumber">Group Code: </p>\n<input type="text" id="groupNumber" name="groupNumber">'
     });
 }
 
