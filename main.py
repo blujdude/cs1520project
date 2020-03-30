@@ -228,7 +228,6 @@ class PageData(object):
     def __init__(self, title, user):
         self.title = title
         self.errors =[]
-        self.user = user
         self.p = {}
 
         def add_error(self, error):
