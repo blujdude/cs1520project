@@ -17,15 +17,17 @@ STATIC_URL = '/static/'
 @app.route('/')
 @app.route('/home.html')
 def root():
-    return flask.render_template("home.html", pagetitle="Home")
+    pd = PageData('Home', get_user())
+    return show_page("home.html", pd)
 
 
 @app.route('/login.html')
 def login_page():
-    return flask.render_template("login.html", pagetitle="Login")
+    pd = PageData('Log In', get_user())
+    return show_page("login.html", pd)
 
-
-@app.route('/signup.html')
+#Should be unnecessary
+"""@app.route('/signup.html')
 def signup_page():
     return flask.render_template("signup.html", pagetitle="Sign Up")
 
@@ -35,7 +37,7 @@ def register_user():
     # username = flask.request.form.get('username')
     # password = flask.request.form.get('password')
     # email = flask.request.form.get('email')
-    return flask.redirect('/build.html')
+    return flask.redirect('/build.html')"""
 
 
 @app.route('/build.html')
@@ -210,12 +212,7 @@ def authcode():
 
 
 def get_user():
-    if "user" in flask.session:
-        username = flask.session.get('user', None)
-    else:
-        username = "admin"
-    return username
-
+    return flask.session.get('user', None)
 
 def show_page(filename, pagedata):
     return flask.render_template(filename, pd = pagedata)
@@ -230,9 +227,10 @@ def show_json(json_data):
     return flask.Response(responseJson, mimetype='application/json')
 
 class PageData(object):
-    def __init__(self, title):
+    def __init__(self, title, user):
         self.title = title
         self.errors =[]
+        self.user = user
         self.p = {}
 
         def add_error(self, error):
