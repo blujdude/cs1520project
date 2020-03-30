@@ -188,7 +188,8 @@ function joinGroup(){
         playerList=result.players;
         var ret="<h4>Joined Group " + result.id + "</h4>" + "<p>Current Players: " + "</p>";
         for(var i=0; i<playerList.length; i++){
-            ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>"
+            ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>";
+            if(i!=playerList.length-1) ret=ret+", ";
         }
         document.getElementById("content").innerHTML = ret;
         document.getElementById("buttonHolder").innerHTML = '<button class="submit-button btn btn-primary btn-round" onclick="leaveGroup()">Leave Group</button>';
