@@ -59,14 +59,14 @@ function makeGroup() {
     sendJsonRequest(parameters, '/make_group_post', function(result, targetUrl, params) {
         console.log(result);
         playerList=result.players;
-        var ret="Your group code is " + result.id + "\nPlayer list: ";
+        var ret="<h4>Your group code is " + result.id + "</h4>" + "<p>Player list: </p>";
         for(var i=0; i<playerList.length; i++){
             ret=ret+"<span style='color: "+playerColors[i]+";' onclick='setPC(\""+playerColors[i]+"\")'>"+playerList[i]+"</span>";
         }
         document.getElementById("content").innerHTML = ret;
         document.getElementById("map_names").style.display = "block";
         groupID=result.id;
-        document.getElementById("buttonHolder").innerHTML='<button onclick="deleteGroup()">Delete Group</button>';
+        document.getElementById("buttonHolder").innerHTML='<button class="submit-button btn btn-primary btn-round" onclick="deleteGroup()">Delete Group</button>';
         buildCanvas(20, 20);
         document.getElementById("map").style.display="block";
 
@@ -88,7 +88,7 @@ function leaderPoll(){ //Any polling to be done on the DM side.  Also updates th
 
     sendJsonRequest(parameters, '/leader_poll', function(result, targetUrl, params) {
         playerList=result.players;
-        var ret="Your group code is " + result.id + "\nPlayer list: ";
+        var ret="<h4>Your group code is " + result.id + "</h4>" + "<p>Player list: </p>";
         for(var i=0; i<playerList.length; i++){
             ret=ret+"<span style='color: "+playerColors[i]+";' onclick='setPC(\""+playerColors[i]+"\")'>"+playerList[i]+"</span>";
         }
@@ -108,7 +108,7 @@ function playerPoll(){ //Any polling to be done on the player side.
     sendJsonRequest(parameters, '/player_poll', function(result, targetUrl, params) {
         console.log(result);
         playerList=result.players;
-        var ret="Joined Group " + result.id + "\nCurrent Players: ";
+        var ret="<h4>Joined Group " + result.id + "</h4>" + "Current Players: ";
         for(var i=0; i<playerList.length; i++){
             ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>"
         }
@@ -170,8 +170,8 @@ function deleteGroup(){
     groupID=-1;
     sendJsonRequest(parameters, '/delete_group_post', function(result, targetUrl, params) {
         console.log(result);
-        document.getElementById("content").innerHTML = "Group Deleted";
-        document.getElementById("buttonHolder").innerHTML='<button onclick="makeGroup()">Make Group</button>';
+        document.getElementById("content").innerHTML = "<p>Group Deleted</p>";
+        document.getElementById("buttonHolder").innerHTML='<button class="submit-button btn btn-primary btn-round" onclick="makeGroup()">Make Group</button>';
         document.getElementById("map").style.display="none";
     });
 }
@@ -186,12 +186,12 @@ function joinGroup(){
     sendJsonRequest(parameters, '/join_group_post', function(result, targetUrl, params){
         console.log(result);
         playerList=result.players;
-        var ret="Joined Group " + result.id + "\nCurrent Players: ";
+        var ret="<h4>Joined Group " + result.id + "</h4>" + "<p>Current Players: " + "</p>";
         for(var i=0; i<playerList.length; i++){
             ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>"
         }
         document.getElementById("content").innerHTML = ret;
-        document.getElementById("buttonHolder").innerHTML = '<button onclick="leaveGroup()">Leave Group</button>';
+        document.getElementById("buttonHolder").innerHTML = '<button class="submit-button btn btn-primary btn-round" onclick="leaveGroup()">Leave Group</button>';
         document.getElementById("map").height=result.height;
         document.getElementById("map").width=result.width;
 
@@ -217,9 +217,9 @@ function leaveGroup(){
 
     sendJsonRequest(parameters, '/leave_group_post', function(result, targetUrl, params){
         console.log(result);
-        document.getElementById("content").innerHTML = "You have left the group";
+        document.getElementById("content").innerHTML = "<h4>You have left the group</h4>";
         document.getElementById("map").style.display="none";
-        document.getElementById("buttonHolder").innerHTML = '<label for="groupNumber">Group Code: </label>\n<input type="text" id="groupNumber" name="groupNumber"> </br>\n<button onclick="joinGroup()" value="'+groupID+'">Join Group</button>'
+        document.getElementById("buttonHolder").innerHTML = '<p for="groupNumber">Group Code: </p>\n<input type="text" id="groupNumber" name="groupNumber">'
     });
 }
 
@@ -272,7 +272,7 @@ function buildCanvas(height, length, map){
 
 function loadCanvas(campaign){
 
-    var key = "admin_"+campaign+"_"+document.getElementById(campaign).value;
+    var key = campaign+"_"+document.getElementById(campaign).value;
 
     var parameters = {
         'key': key

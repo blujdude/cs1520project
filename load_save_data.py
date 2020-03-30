@@ -64,9 +64,10 @@ def load_grid_obj(key):
     return (entity)
 
 
-def load_maps():
+def load_maps(username):
     client = get_client()
     q = client.query(kind="GridEntity")
+    q.add_filter('username', '=', username)
     result = []
 
     for map in q.fetch():

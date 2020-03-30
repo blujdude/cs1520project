@@ -40,7 +40,7 @@ def register_user():
 
 @app.route('/build.html')
 def build_page():
-    map_list = ls.load_maps()
+    map_list = ls.load_maps(get_user())
     return flask.render_template("build.html", pagetitle="Build", maps=map_list)
 
 
@@ -51,7 +51,7 @@ def save_build():
     map_name = flask.request.form.get('map_name')
     height = flask.request.form.get('height')
     length = flask.request.form.get('length')
-    username = "admin"  # use google login
+    username = get_user()
     campaign = flask.request.form.get('campaign')
     ls.save_grid(username, map_name, grid, height, length, campaign)
     return flask.redirect('/build.html')
@@ -80,14 +80,16 @@ def update_grid():
     grid = flask.request.form.get('canvas_data')
     map_name = flask.request.form.get('map_name')
     map_id = flask.request.form.get('map_id')
-    username = "admin"  # use google login
+    username = get_user()
     ls.update_grid(map_id, grid)
     return flask.redirect('/build.html')
 
 
 @app.route("/retrievegrid", methods=["POST"])
 def retrieve_grid():
-    key = request.form.get("key")
+    partial_key = request.form.get("key")
+    username = get_user()
+    key = username + "_" + partial_key
     data = ls.load_grid_obj(key)
     jsonData = json.dumps(data)
     return flask.Response(jsonData)
@@ -100,8 +102,7 @@ def make_group():
     # If there has been, they will then pull the new map (or add players to their session, or whatnot)
 
     # Insert username code here
-    print(request.form)
-    username = request.form.get("username")
+    username = get_user()
 
     print(username)
 
@@ -128,7 +129,7 @@ def join_group_page():
 @app.route("/join_group_post", methods=["POST"])
 def join_group():
     gid = request.form.get("ID")
-    player = request.form.get("player")
+    player = get_user()
     session = group.getSession(gid)
 
     if player not in session.players:  # Add our player to the player list
@@ -161,7 +162,7 @@ def player_poll():
 @app.route("/leave_group_post", methods=["POST"])
 def leave_group():
     gid = request.form.get("ID")
-    player = request.form.get("player")
+    player = get_user()
     session = group.getSession(gid)
     try:
         if player in session.players:  # Remove our player from the player list
@@ -175,7 +176,7 @@ def leave_group():
 
 @app.route("/make_group.html")
 def group_page():
-    map_list = ls.load_maps()
+    map_list = ls.load_maps(get_user())
     return flask.render_template("make_group.html", maps=map_list)
 
 @app.route('/authcode', methods=['POST', 'GET'])
@@ -199,7 +200,7 @@ def authcode():
         d['userid'] = userid
         flask.session['user'] = email
     except ValueError as e:
-        log('Login error: ' + str(e))
+        print('Login error: ' + str(e))
         msg = 'There was a problem validating login. '
         msg += 'Try logging out and logging back in.'
         jd.add_error(msg)
@@ -207,8 +208,14 @@ def authcode():
     jd.set_data(d)
     return show_json(jd)
 
+
 def get_user():
-    return flask.session.get('user', None)
+    if "user" in flask.session:
+        username = flask.session.get('user', None)
+    else:
+        username = "admin"
+    return username
+
 
 def show_page(filename, pagedata):
     return flask.render_template(filename, pd = pagedata)

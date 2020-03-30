@@ -32,25 +32,22 @@
 
     <body onload="buildCanvas({{ height }}, {{ length }}, {{ map }})">
 
+    <br>    
     <form class = "center" id="Tools">
-        <input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawTool();">
-        <label for="draw">Draw Tool</label><br>
-        <input type="radio" id="erase" name="Tools" value="erase" onclick="eraseTool();">
-        <label for="erase">Erase Tool</label><br>
+        <p for="draw"><input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawTool();"> Draw Tool </p>
+        <p for="erase"><input type="radio" id="erase" name="Tools" value="erase" onclick="eraseTool();"> Erase Tool</p>
     </form>
 
-
- 
     <form class = "center" name= "map_form" method="post" action="/savebuild" onsubmit="saveCanvas()">
         <canvas id="map" onmousedown="beginDraw(event)" onmouseup="endDraw()" onmousemove="paint(event)">The Map</canvas><br><br>
-        <label for="campaign">Campaign Name:</label>
-        <input type="text" id="campaign" name="campaign"><br><br>
-        <label for="map_name">Name your Map:</label>
-        <input type="text" id="map_name" name="map_name"><br><br>
+        <p for="campaign">Campaign Name:
+        <input type="text" id="campaign" name="campaign"></p>
+        <p for="map_name">Name your Map:
+        <input type="text" id="map_name" name="map_name"></p>
         <input type="hidden" id="canvas_data" name="canvas_data" value="">
         <input type="hidden" id="height" name="height" value={{height}}>
         <input type="hidden" id="length" name="length" value={{length}}>
-        <input type="submit" class="submit-button" value="Save Grid">
+        <button type="submit" class="submit-button btn btn-primary btn-round" value="Save Grid">Save Grid</button>
     </form>
     </div>
 </body>
