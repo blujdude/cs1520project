@@ -104,10 +104,14 @@
         }
 
         sendJsonPost(params, '/authcode', function(responseObject, targetUrl, parameters){
+            /*
             if(responseObject.errors.length == 0){
                 document.location ='/';
 
             }
+            */
+        });
+        sendJsonPost(params, '/setcookie', function(responseObject, targetUrl, parameters){
         });
     }
     </script>
