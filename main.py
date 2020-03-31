@@ -179,6 +179,11 @@ def group_page():
     map_list = ls.load_maps(get_user())
     return flask.render_template("make_group.html", maps=map_list)
 
+@app.route('/dologout')
+def dologout():
+    flask.session['user'] = None
+    return flask.redirect('/')
+
 @app.route('/authcode', methods=['POST', 'GET'])
 def authcode():
     token = flask.request.form.get('token')
