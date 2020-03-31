@@ -40,7 +40,9 @@ def register_user():
 
 @app.route('/build.html')
 def build_page():
-    map_list = ls.load_maps(get_user().email)
+    username = "admin"
+    #username = get_user().email
+    map_list = ls.load_maps(username)
     return flask.render_template("build.html", pagetitle="Build", maps=map_list)
 
 
@@ -51,7 +53,7 @@ def save_build():
     map_name = flask.request.form.get('map_name')
     height = flask.request.form.get('height')
     length = flask.request.form.get('length')
-    username = get_user().email
+    username = get_user()
     campaign = flask.request.form.get('campaign')
     ls.save_grid(username, map_name, grid, height, length, campaign)
     return flask.redirect('/build.html')
@@ -78,9 +80,9 @@ def load_grid_page(key):
 def update_grid():
 
     grid = flask.request.form.get('canvas_data')
-    map_name = flask.request.form.get('map_name')
+    #map_name = flask.request.form.get('map_name')
     map_id = flask.request.form.get('map_id')
-    username = get_user()
+    #username = get_user()
     ls.update_grid(map_id, grid)
     return flask.redirect('/build.html')
 
@@ -88,7 +90,7 @@ def update_grid():
 @app.route("/retrievegrid", methods=["POST"])
 def retrieve_grid():
     partial_key = request.form.get("key")
-    username = get_user().email
+    username = get_user()
     key = username + "_" + partial_key
     data = ls.load_grid_obj(key)
     jsonData = json.dumps(data)
@@ -209,8 +211,21 @@ def authcode():
     return show_json(jd)
 
 
+@app.route('/setcookie', methods=['POST', 'GET'])
+def setcookie():
+    if request.method == 'POST':
+        user = request.form['email']
+
+    resp = flask.make_response()
+    resp.set_cookie('email', user)
+
+    return resp
+
+
+@app.route('/getuser')
 def get_user():
-    return flask.session.get('user', None)
+    return request.cookies.get('email')
+
 
 def show_page(filename, pagedata):
     return flask.render_template(filename, pd = pagedata)
