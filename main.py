@@ -40,8 +40,7 @@ def register_user():
 
 @app.route('/build.html')
 def build_page():
-    username = "admin"
-    #username = get_user().email
+    username = get_user()
     map_list = ls.load_maps(username)
     return flask.render_template("build.html", pagetitle="Build", maps=map_list)
 
@@ -72,6 +71,7 @@ def grid_page():
 @app.route('/grid/<key>')
 def load_grid_page(key):
 
+    key = get_user() + "_" + key
     (map, height, length, map_name, map_id) = ls.load_grid(key)
     return flask.render_template("mygrid.html", height=height, length=length, map=map, map_name=map_name, map_id=map_id)
 
@@ -91,7 +91,8 @@ def update_grid():
 def retrieve_grid():
     partial_key = request.form.get("key")
     username = get_user()
-    key = username + "_" + partial_key
+    key = (username + "_" + partial_key).replace(" ", "_")
+    print (key)
     data = ls.load_grid_obj(key)
     jsonData = json.dumps(data)
     return flask.Response(jsonData)
@@ -222,9 +223,10 @@ def setcookie():
     return resp
 
 
-@app.route('/getuser')
+@app.route('/getuser', methods=['POST', 'GET'])
 def get_user():
-    return request.cookies.get('email')
+    return "admin@gmail.com"
+    #return request.cookies.get('email')
 
 
 def show_page(filename, pagedata):

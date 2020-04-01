@@ -28,6 +28,9 @@
   <script src="static/scripts.js"></script>
 </head>
 <body>
+<script src="{{url_for('static', filename='build.js')}}"></script>
+<body onload="filesystem({{maps}})">
+
 <div class="section section-build-map" align="center" style="background-color:#F1EADA">
     <h2><strong>Build your Map</strong></h2>
     <div id="buttonHolder">
@@ -41,14 +44,8 @@
         </form>
     </div>
 
-    <!-- Commented out this section for now -Aliyah -->
-    <!-- <ul>
-    {% for map in maps %}
-        <li>
-            <a font color="blue" href="/grid/{{map.map_id}}">{{map.map_name}}</a>
-        </li>
-    {% endfor %}
-    </ul> -->
+    <div id="map_names"> </div>
+    
 </div>
 </body>
 </html>

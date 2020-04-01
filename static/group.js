@@ -48,7 +48,7 @@ function sendJsonRequest(parameterObject, targetUrl, callbackFunction) {
     console.log(targetUrl);
     console.log(parameterObject);
     temp = objectToParameters(parameterObject);
-    console.log(temp);
+    //console.log(temp);
     postParameters(xmlHttp, targetUrl, temp);
 }
 
@@ -70,7 +70,7 @@ function makeGroup() {
         buildCanvas(20, 20);
         document.getElementById("map").style.display="block";
 
-        setInterval(leaderPoll, 3000); //Poll once every 3 seconds
+        //setInterval(leaderPoll, 3000); //Poll once every 3 seconds
 
     })
 }
@@ -274,6 +274,7 @@ function buildCanvas(height, length, map){
 function loadCanvas(campaign){
 
     var key = campaign+"_"+document.getElementById(campaign).value;
+    console.log(key)
 
     var parameters = {
         'key': key
@@ -292,17 +293,6 @@ function loadCanvas(campaign){
         canvas.height=blocksize*height;
 
         var ctx=canvas.getContext("2d");
-        for(var i=0; i<=canvas.width; i=i+blocksize){
-            ctx.moveTo(i, 0);
-            ctx.lineTo(i, canvas.height);
-            ctx.stroke();
-        }
-
-        for(var i=0; i<=canvas.height; i=i+blocksize){
-            ctx.moveTo(0, i);
-            ctx.lineTo(canvas.width, i);
-            ctx.stroke();
-        }
 
         var img = new Image;
         img.onload = function(){
@@ -327,7 +317,7 @@ function filesystem(maps) {
         console.log(i);
         m = JSON.parse(sortedMaps[i]);
         if (m.campaign == curCampaign){
-            myHTML = myHTML + "<option value="+m.map_name+">"+m.map_name+"</option>\n";
+            myHTML = myHTML + "<option value="+(m.map_name).replace(/ /g,"_")+">"+m.map_name+"</option>\n";
         }
         else {
             myHTML = myHTML + "</select>\n";
@@ -336,7 +326,7 @@ function filesystem(maps) {
             myHTML = myHTML + "<label for="+pasteCampaign+">"+pasteCampaign+"</label>\n";
             myHTML = myHTML + "<select id="+pasteCampaign+" onChange='loadCanvas("+pasteCampaign+")'>\n";
             myHTML = myHTML + "<option value=''></option>\n";
-            myHTML = myHTML + "<option value="+m.map_name+">"+m.map_name+"</option>\n";
+            myHTML = myHTML + "<option value="+(m.map_name).replace(/ /g,"_")+">"+m.map_name+"</option>\n";
         }
     }
     myHTML = myHTML + "</select>\n";
