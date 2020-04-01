@@ -230,8 +230,7 @@ def setcookie():
 
 @app.route('/getuser', methods=['POST', 'GET'])
 def get_user():
-    return "admin@gmail.com"
-    #return request.cookies.get('email')
+    return request.cookies.get('email')
 
 
 def show_page(filename, pagedata):

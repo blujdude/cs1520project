@@ -70,7 +70,7 @@ function makeGroup() {
         buildCanvas(20, 20);
         document.getElementById("map").style.display="block";
 
-        //setInterval(leaderPoll, 3000); //Poll once every 3 seconds
+        setInterval(leaderPoll, 3000); //Poll once every 3 seconds
 
     })
 }
