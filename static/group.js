@@ -70,6 +70,7 @@ function makeGroup() {
         document.getElementById("buttonHolder").innerHTML='<button class="submit-button btn btn-primary btn-round" onclick="deleteGroup()">Delete Group</button>';
         buildCanvas(20, 20);
         document.getElementById("map").style.display="block";
+        document.getElementById("enemyButton").style.display="block";
 
         setInterval(leaderPoll, 3000); //Poll once every 3 seconds
 
@@ -176,6 +177,7 @@ function deleteGroup(){
         document.getElementById("content").innerHTML = "<p>Group Deleted</p>";
         document.getElementById("buttonHolder").innerHTML='<button class="submit-button btn btn-primary btn-round" onclick="makeGroup()">Make Group</button>';
         document.getElementById("map").style.display="none";
+        document.getElementById("enemyButton").style.display="none";
     });
 }
 
