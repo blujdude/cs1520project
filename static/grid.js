@@ -181,6 +181,7 @@ function placeEnemy(event){
 
 function setEnemyMode(){
     enemyMode=!enemyMode;
+    pcColor=null;
     if(enemyMode){ //Set the button color to something that shows it is activated
         return;
     }
