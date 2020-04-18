@@ -2,6 +2,7 @@
 const blockSize=26; //Should be even
 const drawColor = "black";
 const blankColor = "#f1eada";
+const enemyColor="#ff0000";
 
 var board;
 
@@ -12,6 +13,8 @@ var drawing=false;
 var pcColor;
 
 var playerLocations={};
+
+var enemyMode=false;
 
 function buildCanvas(height, length, map){
 
@@ -125,6 +128,66 @@ function saveCanvas(){
 
 function setPC(color){
     pcColor=color;
+    enemyMode=false;
+}
+
+function placeCharacter(event){
+    if(enemyMode) placeEnemy(event);
+    else placePC(event);
+}
+
+function placeEnemy(event){
+    var canvas=document.getElementById("map");
+    var ctx=canvas.getContext("2d");
+    var x=event.clientX;
+    var y=event.clientY;
+    x=x-canvas.getBoundingClientRect().left;
+    y=y-canvas.getBoundingClientRect().top;
+    
+    var xIndex=Math.floor(x/blockSize);  //Grid index of the block we are in.
+    var yIndex=Math.floor(y/blockSize);
+
+    x = xIndex*blockSize + Math.floor(blockSize/2); //Actual coord of the center of our block
+    y = yIndex*blockSize + Math.floor(blockSize/2);
+
+    var pixelData=ctx.getImageData(x, y, 1, 1).data; //Get the data for the pixel of the center of the block
+
+    //Turn RGB to hex.  Really complicated.
+    var hexValue="#"+("000000"+((pixelData[0] << 16) | (pixelData[1] << 8) | pixelData[2]).toString(16)).slice(-6);
+
+    if(hexValue.localeCompare(blankColor)==0){ //Good to draw, empty square.
+        ctx.beginPath();  //First, draw.
+        ctx.arc(x, y, blockSize/2-1, 0, 2 * Math.PI);
+
+        ctx.fillStyle = enemyColor;
+        ctx.lineWidth=1.5;
+        ctx.fill();
+        ctx.stroke();
+
+    }
+    else if(hexValue.localeCompare(enemyColor)==0){ //Remove the enemy
+        ctx=canvas.getContext("2d");
+        ctx.fillStyle=blankColor;
+        ctx.lineWidth=1.5;
+        ctx.fillRect(xIndex*blockSize, yIndex*blockSize, blockSize, blockSize);
+        ctx.strokeRect(xIndex*blockSize, yIndex*blockSize, blockSize, blockSize);
+
+    }
+
+
+
+
+}
+
+function setEnemyMode(){
+    enemyMode=!enemyMode;
+    pcColor=null;
+    if(enemyMode){ //Set the button color to something that shows it is activated
+        return;
+    }
+    else { //Set it to something that shows it is unactivated
+        return;
+    }
 }
 
 function placePC(event){

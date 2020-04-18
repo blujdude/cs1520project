@@ -62,6 +62,7 @@ function makeGroup() {
         var ret="<h4>Your group code is " + result.id + "</h4>" + "<p>Player list: </p>";
         for(var i=0; i<playerList.length; i++){
             ret=ret+"<span style='color: "+playerColors[i]+";' onclick='setPC(\""+playerColors[i]+"\")'>"+playerList[i]+"</span>";
+            if(i<playerList.length-1) ret=ret+", ";
         }
         document.getElementById("content").innerHTML = ret;
         document.getElementById("map_names").style.display = "block";
@@ -69,6 +70,7 @@ function makeGroup() {
         document.getElementById("buttonHolder").innerHTML='<button class="submit-button btn btn-primary btn-round" onclick="deleteGroup()">Delete Group</button>';
         buildCanvas(20, 20);
         document.getElementById("map").style.display="block";
+        document.getElementById("enemyButton").style.display="block";
 
         setInterval(leaderPoll, 3000); //Poll once every 3 seconds
 
@@ -91,6 +93,7 @@ function leaderPoll(){ //Any polling to be done on the DM side.  Also updates th
         var ret="<h4>Your group code is " + result.id + "</h4>" + "<p>Player list: </p>";
         for(var i=0; i<playerList.length; i++){
             ret=ret+"<span style='color: "+playerColors[i]+";' onclick='setPC(\""+playerColors[i]+"\")'>"+playerList[i]+"</span>";
+            if(ret<playerList.length-1) ret=ret+", ";
         }
         console.log("Return value: "+ret);
         document.getElementById("content").innerHTML = ret;
@@ -111,6 +114,7 @@ function playerPoll(){ //Any polling to be done on the player side.
         var ret="<h4>Joined Group " + result.id + "</h4>" + "Current Players: ";
         for(var i=0; i<playerList.length; i++){
             ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>"
+            if(i<playerList.length-1) ret=ret+", ";
         }
         document.getElementById("content").innerHTML = ret;
         canvas = document.getElementById("holder");  //Our comparison staging area
@@ -173,6 +177,7 @@ function deleteGroup(){
         document.getElementById("content").innerHTML = "<p>Group Deleted</p>";
         document.getElementById("buttonHolder").innerHTML='<button class="submit-button btn btn-primary btn-round" onclick="makeGroup()">Make Group</button>';
         document.getElementById("map").style.display="none";
+        document.getElementById("enemyButton").style.display="none";
     });
 }
 
@@ -189,7 +194,7 @@ function joinGroup(){
         var ret="<h4>Joined Group " + result.id + "</h4>" + "<p>Current Players: " + "</p>";
         for(var i=0; i<playerList.length; i++){
             ret=ret+"<span style='color: "+playerColors[i]+";'>"+playerList[i]+"</span>";
-            if(i!=playerList.length-1) ret=ret+", ";
+            if(i<playerList.length-1) ret=ret+", ";
         }
         document.getElementById("content").innerHTML = ret;
         document.getElementById("buttonHolder").innerHTML = '<button class="submit-button btn btn-primary btn-round" onclick="leaveGroup()">Leave Group</button>';
