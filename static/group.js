@@ -231,6 +231,8 @@ function buildCanvas(height, length, map){
 
         /*
         //Rows
+￼
+
         for(var i=0; i<height; i++){
             board[i]=new Array(length);
             //Cols
