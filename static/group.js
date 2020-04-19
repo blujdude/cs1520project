@@ -74,7 +74,7 @@ function makeGroup() {
         buildCanvas(20, 20);
         document.getElementById("map").style.display="block";
         document.getElementById("map_container").style.display="block";
-        document.getElementById("enemyButton").style.display="block";
+        //document.getElementById("enemyButton").style.display="block";
         document.getElementById("Tools").style.display="block";
         document.getElementById("clearButton").style.display="block";
 
@@ -151,7 +151,7 @@ function playerPoll(){ //Any polling to be done on the player side.
         var oldData=ctx.getImageData(0, 0, canvas.width, canvas.height);
 
         if(newData.height==oldData.height && newData.width==oldData.width){
-            return;
+            //do nothing
         }
         else{ //Pixel by pixel comparison.
             var flag=0;
@@ -164,30 +164,64 @@ function playerPoll(){ //Any polling to be done on the player side.
                 }
             }
 
-            if(flag==0){
-                return;
+            if(flag!=0){
+                //refresh map
+                var img = new Image;
+                img.onload = function(){
+                ctx.drawImage(img,0,0);
+                };
+                 img.src = result.map;
             }
         }
-        //refresh map
-
-        var img = new Image;
-        img.onload = function(){
-            ctx.drawImage(img,0,0);
-        };
-        img.src = result.map;
 
 
-        //refresh fog
-        canvas2=document.getElementById("fog");
-        canvas2.height=result.height;
-        canvas2.width=result.width;
-        ctx2=canvas2.getContext("2d");
+        //repeat for fog
+        canvas = document.getElementById("holder");  //Our comparison staging area
+
+        canvas.height=result.height;
+        canvas.width=result.width;
+
+        var ctx=canvas.getContext("2d"); // Build comparison
 
         var img2 = new Image;
         img2.onload = function(){
-            ctx2.drawImage(img2,0,0);
+            ctx.drawImage(img2,0,0);
         };
         img2.src = result.fog;
+
+
+        //Now, we must compare the staged map and current map
+
+        var newData=ctx.getImageData(0,0,canvas.width, canvas.height);
+        canvas=document.getElementById("fog");
+        ctx=canvas.getContext("2d");
+        var oldData=ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+        if(newData.height==oldData.height && newData.width==oldData.width){
+            //do nothing
+        }
+        else{ //Pixel by pixel comparison.
+            var flag=0;
+            for(var i=0; i<oldData.data.length && !flag; i=i+4){
+                var oldHex="#"+("000000"+((oldData[i] << 16) | (oldData[i+1] << 8) | oldData[i+2]).toString(16)).slice(-6);
+                var newHex="#"+("000000"+((newData[i] << 16) | (newData[i+1] << 8) | newData[i+2]).toString(16)).slice(-6);
+
+                if(oldHex.localeCompare(newHex)!=0){ //Our pixels are not the same
+                    flag=1;
+                }
+            }
+
+            if(flag!=0){
+                //refresh map
+                var img2 = new Image;
+                img2.onload = function(){
+                ctx.drawImage(img2,0,0);
+                };
+                 img2.src = result.fog;
+            }
+        }   
+
+
 
     })
 }
