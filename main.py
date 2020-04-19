@@ -146,7 +146,7 @@ def join_group():
 def leader_poll():
     gid = request.form.get("ID")
 
-    group.updateSession(gid, map=request.form.get("map"), height=request.form.get("height"), width=request.form.get("width"))
+    group.updateSession(gid, map=request.form.get("map"), fog=request.form.get("fog"), height=request.form.get("height"), width=request.form.get("width"))
 
     session = group.getSession(gid)
 
@@ -231,6 +231,7 @@ def setcookie():
 @app.route('/getuser', methods=['POST', 'GET'])
 def get_user():
     return request.cookies.get('email')
+    # return "admin"
 
 
 def show_page(filename, pagedata):

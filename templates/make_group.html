@@ -29,19 +29,31 @@
 
 <body>
     <body onload="filesystem({{maps}})">
-    <div class="section section-make-group" align="center" style="background-color:#F1EADA">
+    <div class="section section-make-group" align="center" style="background-color:#F1EADA;">
         <script src="{{url_for('static', filename='group.js')}}"></script>
         <script src="{{url_for('static', filename='grid.js')}}"></script>
 
         <div id="buttonHolder">
-        <h2><strong>Make a Group</strong></h2>
+        <h1><strong>Make a Group</strong></h1>
             <form>
                 <button type="button" class="btn btn-primary btn-round" onclick="makeGroup()">Make Group</button>
             </form>
         </div>
 
-        <canvas id="map" name="map" style="display:none;" onclick="placeCharacter(event)">MAP</canvas>
-        <button type="button" class="btn btn-primary btn-round" style="display:none;" id="enemyButton" onclick="setEnemyMode()">Place/Move Enemies</button>
+        <div id="map_container" style="display:none; position:relative; width:520px; height:520px;">
+            <canvas id="map" name="map" style="display:none; z-index: 0;  position:absolute;" onclick="placeCharacter(event)">MAP</canvas>
+            <canvas id="fog" name="fog" style="display:none; z-index: 1;  position:absolute; opacity:0.5;" onclick="placeCharacter(event)"" onmousedown="beginDrawFog(event)" onmouseup="endDrawFog()" onmousemove="paintFog(event)">FOG</canvas>
+        </div>
+
+
+        <br>
+        <form class = "center" id="Tools" style="display:none;">
+            <p for="draw"><input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawFogTool();"> Draw Fog </p>
+            <p for="erase"><input type="radio" id="erase" name="Tools" value="erase" onclick="eraseFogTool();"> Erase Fog</p>
+            <p for="enemies"><input type="radio" id="enemies" name="Tools" value="enemies" onclick="setEnemyMode();"> Place Enemies</p>
+            <p for="players"><input type="radio" id="players" name="Tools" value="players" onclick="setPlayerMode();"> Place Players</p>
+        </form>
+        <button type="button" class="btn btn-primary btn-round" style="display:none;" id="clearButton" onclick="clearFog()">Clear Fog</button>
         <div id="content"> </div>
         <div id="map_names" style="display:none;"> </div>
     

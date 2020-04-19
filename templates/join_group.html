@@ -36,7 +36,10 @@
             </form><br>
             <button type="button" class="btn btn-primary btn-round" onclick="joinGroup()">Join Group</button>
         </div>
-    <canvas id="map" style="display:none;">MAP</canvas>
+    <div id="map_container" style="display:none; position:relative; width:520px; height:520px;">
+        <canvas id="map" name="map" style="display:none; position:absolute;" onclick="placeCharacter(event)">MAP</canvas>
+        <canvas id="fog" name=fog style="display:none; position:absolute;">FOG</canvas>
+    </div>
     <canvas id="holder" style="display:none;">MAP</canvas>
     <div id="content"> </div>
   </div>
