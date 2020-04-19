@@ -54,7 +54,8 @@ def save_build():
     length = flask.request.form.get('length')
     username = get_user()
     campaign = flask.request.form.get('campaign')
-    ls.save_grid(username, map_name, grid, height, length, campaign)
+    floor = flask.request.form.get('floor')
+    ls.save_grid(username, map_name, grid, height, length, campaign, floor)
     return flask.redirect('/build.html')
 
 
@@ -72,8 +73,8 @@ def grid_page():
 def load_grid_page(key):
 
     key = get_user() + "_" + key
-    (map, height, length, map_name, map_id) = ls.load_grid(key)
-    return flask.render_template("mygrid.html", height=height, length=length, map=map, map_name=map_name, map_id=map_id)
+    (map, height, length, map_name, map_id, campaign) = ls.load_grid(key)
+    return flask.render_template("mygrid.html", height=height, length=length, map=map, map_name=map_name, map_id=map_id, campaign=campaign)
 
 
 @app.route('/updategrid', methods=['POST'])
@@ -85,6 +86,21 @@ def update_grid():
     #username = get_user()
     ls.update_grid(map_id, grid)
     return flask.redirect('/build.html')
+
+
+@app.route('/addfloor', methods=['POST'])
+def add_floor():
+    username = get_user()
+    map_name = flask.request.form.get('map_name')
+    campaign = flask.request.form.get('campaign')
+    floor = flask.request.form.get('floor')
+    height = flask.request.form.get('height')
+    length = flask.request.form.get('length')
+    grid = None
+    ls.save_grid(username, map_name, grid, height, length, campaign, floor)
+
+    StringURL = ("/grid/"+campaign+"_"+map_name+"_"+floor).replace(" ", "_")
+    return flask.redirect(StringURL)
 
 
 @app.route("/retrievegrid", methods=["POST"])

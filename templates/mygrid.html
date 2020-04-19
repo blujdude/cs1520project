@@ -38,10 +38,12 @@
             <label for="draw">Draw Tool</label><br>
             <input type="radio" id="erase" name="Tools" value="erase" onclick="eraseTool();">
             <label for="erase">Erase Tool</label><br>
-            <label for="campaign">Floor Name:</label>
-            <input type="text" id="floor_name" name="floor_name"><br><br>
+            <label for="floor">Floor Name:</label>
+            <input type="text" id="floor" name="floor"><br><br>
             <input type="hidden" id="height" name="height" value={{height}}>
             <input type="hidden" id="length" name="length" value={{length}}>
+            <input type="hidden" id="map_name" name="map_name" value={{map_name}}>
+            <input type="hidden" id="campaign" name="campaign" value={{campaign}}>
             <input type="submit" class="submit-button" value="Add Floor">
         </form>
 
