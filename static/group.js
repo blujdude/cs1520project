@@ -241,6 +241,9 @@ function deleteGroup(){
         document.getElementById("clearButton").style.display="none";
         document.getElementById("fog").style.display="none";
         document.getElementById("select_campaign").style.display="none";
+        document.getElementById("select_name").style.display="none";
+        document.getElementById("select_floor").style.display="none";
+        document.getElementById("load_map").style.display="none";
     });
 }
 
@@ -300,10 +303,12 @@ function leaveGroup(){
 
     sendJsonRequest(parameters, '/leave_group_post', function(result, targetUrl, params){
         console.log(result);
+        groupID=-1;
         document.getElementById("content").innerHTML = "<h4>You have left the group</h4>";
         document.getElementById("map").style.display="none";
         document.getElementById("buttonHolder").innerHTML = '<h2><strong>Join a Group</strong></h2>\n<form>\n<label for="groupNumber">Group Code:</label>\n<input align="center" type="text" id="groupNumber" name="groupNumber">\n</form><br>\n<button type="button" class="btn btn-primary btn-round" onclick="joinGroup()">Join Group</button>';
         document.getElementById("fog").style.display="none";
+        document.getElementById("map_containter").style.display="none";
     });
 }
 
