@@ -14,7 +14,8 @@ function selectCampaign(maps) {
             myHTML = myHTML + "<option value="+(parsed.campaign).replace(/ /g,"_")+">"+parsed.campaign+"</option>\n";
         }
     }
-    document.getElementById("map_names").innerHTML = myHTML;
+    document.getElementById("select_campaign").style.display="block";
+    document.getElementById("select_campaign").innerHTML = myHTML;
 
 }
 
@@ -37,7 +38,8 @@ function selectName(maps) {
         }
     }
     console.log(myHTML);
-    document.getElementById("map_names").innerHTML = document.getElementById("map_names").innerHTML + myHTML;
+    document.getElementById("select_name").style.display="block";
+    document.getElementById("select_name").innerHTML = myHTML;
 
 }
 
@@ -48,7 +50,7 @@ function selectFloor(maps) {
 
     var myHTML = "";
     myHTML = myHTML + "<label for='floors'>Floor: </label>\n";
-    myHTML = myHTML + "<select id='floors' onChange=makeSubmitButton()>\n";
+    myHTML = myHTML + "<select id='floors' onChange=loadSubmitButton()>\n";
     myHTML = myHTML + "<option value=''></option>\n";
 
     var floors = []
@@ -59,13 +61,14 @@ function selectFloor(maps) {
             myHTML = myHTML + "<option value="+(parsed.floor).replace(/ /g,"_")+">"+parsed.floor+"</option>\n";
         }
     }
-    document.getElementById("map_names").innerHTML = document.getElementById("map_names").innerHTML + myHTML;
+    document.getElementById("select_floor").style.display="block";
+    document.getElementById("select_floor").innerHTML = myHTML;
 
 }
 
-function makeSubmitButton(){
-    myHTML = "<button type='submit' class='btn btn-primary btn-round' onClick=followLink()>Submit</button>";
-    document.getElementById("map_names").innerHTML = document.getElementById("map_names").innerHTML + myHTML;
+function loadSubmitButton(){
+
+    document.getElementById("load_map").style.display="block";
 }
 
 function followLink(){

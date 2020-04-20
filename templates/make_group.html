@@ -28,7 +28,7 @@
 </head>
 
 <body>
-    <body onload="filesystem({{maps}})">
+    <body onload="selectCampaign({{maps}})">
     <div class="section section-make-group" align="center" style="background-color:#F1EADA;">
         <script src="{{url_for('static', filename='group.js')}}"></script>
         <script src="{{url_for('static', filename='grid.js')}}"></script>
@@ -81,7 +81,10 @@
 
         <button type="button" class="btn btn-primary btn-round" style="display:none;" id="clearButton" onclick="clearFog()">Clear Fog</button>
         <div id="content"> </div>
-        <div id="map_names" style="display:none;"> </div>
+        <div id="select_campaign" style="display:none"></div>
+        <div id="select_name" style="display:none"></div>
+        <div id="select_floor" style="display:none"> </div>
+        <button type='submit' id="load_map" class='btn btn-primary btn-round' style="display:none" onClick=loadCanvas()>Load Map</button>
     
     </div>
 </body>
