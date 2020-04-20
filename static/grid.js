@@ -173,14 +173,14 @@ function drawDoor(x, y, color=fillColor){
     var i;
     for (i = 0; i < imgData.data.length; i += 4) {
         if(door[i/4] == 1){
-            console.log("black");
+            //console.log("black");
             imgData.data[i+0] = 0;
             imgData.data[i+1] = 0;
             imgData.data[i+2] = 0;
             imgData.data[i+3] = 255;
         }
         else{
-            console.log("white");
+            //console.log("white");
             imgData.data[i+0] = 241;
             imgData.data[i+1] = 234;
             imgData.data[i+2] = 218;
