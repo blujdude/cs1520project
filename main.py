@@ -55,7 +55,8 @@ def save_build():
     username = get_user()
     campaign = flask.request.form.get('campaign')
     floor = flask.request.form.get('floor')
-    isPublic = flask.request.form.get('isPublic')
+    # isPublic = flask.request.form.get('isPublic')
+    isPublic = True
     ls.save_grid(username, map_name, grid, height, length, campaign, floor, isPublic)
     return flask.redirect('/build.html')
 
@@ -248,7 +249,7 @@ def setcookie():
 @app.route('/getuser', methods=['POST', 'GET'])
 def get_user():
     return request.cookies.get('email')
-    #return "admin"
+    # return "admin"
 
 
 def show_page(filename, pagedata):
