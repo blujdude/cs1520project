@@ -100,7 +100,7 @@ function leaderPoll(){ //Any polling to be done on the DM side.  Also updates th
         var ret="<h4>Your group code is " + result.id + "</h4>" + "<p>Player list: </p>";
         for(var i=0; i<playerList.length; i++){
             ret=ret+"<span style='color: "+playerColors[i]+";' onclick='setPC(\""+playerColors[i]+"\")'>"+playerList[i]+"</span>";
-            if(ret<playerList.length-1) ret=ret+", ";
+            if(i<playerList.length-1) ret=ret+", ";
         }
         console.log("Return value: "+ret);
         document.getElementById("content").innerHTML = ret;
@@ -236,7 +236,11 @@ function deleteGroup(){
         document.getElementById("content").innerHTML = "<p>Group Deleted</p>";
         document.getElementById("buttonHolder").innerHTML='<button class="submit-button btn btn-primary btn-round" onclick="makeGroup()">Make Group</button>';
         document.getElementById("map").style.display="none";
-        document.getElementById("enemyButton").style.display="none";
+        document.getElementById("map_container").style.display="none";
+        document.getElementById("Tools").style.display="none";
+        document.getElementById("clearButton").style.display="none";
+        document.getElementById("fog").style.display="none";
+        document.getElementById("select_campaign").style.display="none";
     });
 }
 
@@ -298,7 +302,8 @@ function leaveGroup(){
         console.log(result);
         document.getElementById("content").innerHTML = "<h4>You have left the group</h4>";
         document.getElementById("map").style.display="none";
-        document.getElementById("buttonHolder").innerHTML = '<p for="groupNumber">Group Code: </p>\n<input type="text" id="groupNumber" name="groupNumber">'
+        document.getElementById("buttonHolder").innerHTML = '<h2><strong>Join a Group</strong></h2>\n<form>\n<label for="groupNumber">Group Code:</label>\n<input align="center" type="text" id="groupNumber" name="groupNumber">\n</form><br>\n<button type="button" class="btn btn-primary btn-round" onclick="joinGroup()">Join Group</button>';
+        document.getElementById("fog").style.display="none";
     });
 }
 
