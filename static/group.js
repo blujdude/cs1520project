@@ -236,7 +236,11 @@ function deleteGroup(){
         document.getElementById("content").innerHTML = "<p>Group Deleted</p>";
         document.getElementById("buttonHolder").innerHTML='<button class="submit-button btn btn-primary btn-round" onclick="makeGroup()">Make Group</button>';
         document.getElementById("map").style.display="none";
-        document.getElementById("enemyButton").style.display="none";
+        document.getElementById("map_container").style.display="none";
+        document.getElementById("Tools").style.display="none";
+        document.getElementById("clearButton").style.display="none";
+        document.getElementById("fog").style.display="none";
+        document.getElementById("select_campaign").style.display="none";
     });
 }
 
