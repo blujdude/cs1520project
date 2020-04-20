@@ -29,14 +29,39 @@
     <div class="buildGrid" align="center" style="background-color:#F1EADA">
     <script src="{{url_for('static', filename='grid.js')}}"></script>
     <link rel="stylesheet" href="/static/css/grid.css">
+    <br>
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn"> <i class="fas fa-toolbox"></i> Tools </button>
+        <div id="myDropdown" class="dropdown-content">
+        <p for="draw"><input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawTool();"> <i class="fas fa-pencil-ruler"></i> Draw </p>
+        <p for="erase"><input type="radio" id="erase" name="Tools" value="erase" onclick="eraseTool();"> <i class="fas fa-eraser"></i> Erase </p>
+        </div>
+    </div>
 
+    <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+    <br>
     <body onload="buildCanvas({{ height }}, {{ length }}, {{ map }})">
-
-    <br>    
-    <form class = "center" id="Tools">
-        <p for="draw"><input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawTool();"> Draw Tool </p>
-        <p for="erase"><input type="radio" id="erase" name="Tools" value="erase" onclick="eraseTool();"> Erase Tool</p>
-    </form>
+    <br>
 
     <form class = "center" name= "map_form" method="post" action="/savebuild" onsubmit="saveCanvas()">
         <canvas id="map" onmousedown="beginDraw(event)" onmouseup="endDraw()" onmousemove="paint(event)">The Map</canvas><br><br>

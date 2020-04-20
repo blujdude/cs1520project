@@ -34,7 +34,7 @@
         <script src="{{url_for('static', filename='grid.js')}}"></script>
 
         <div id="buttonHolder">
-        <h1><strong>Make a Group</strong></h1>
+        <h2><strong>Make a Group</strong></h2>
             <form>
                 <button type="button" class="btn btn-primary btn-round" onclick="makeGroup()">Make Group</button>
             </form>
@@ -44,15 +44,41 @@
             <canvas id="map" name="map" style="display:none; z-index: 0;  position:absolute;" onclick="placeCharacter(event)">MAP</canvas>
             <canvas id="fog" name="fog" style="display:none; z-index: 1;  position:absolute; opacity:0.5;" onclick="placeCharacter(event)" onmousedown="beginDrawFog(event)" onmouseup="endDrawFog()" onmousemove="paintFog(event)">FOG</canvas>
         </div>
-
-
+        
         <br>
-        <form class = "center" id="Tools" style="display:none;">
-            <p for="draw"><input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawFogTool();"> Draw Fog </p>
-            <p for="erase"><input type="radio" id="erase" name="Tools" value="erase" onclick="eraseFogTool();"> Erase Fog</p>
-            <p for="enemies"><input type="radio" id="enemies" name="Tools" value="enemies" onclick="setEnemyMode();"> Place Enemies</p>
-            <p for="players"><input type="radio" id="players" name="Tools" value="players" onclick="setPlayerMode();"> Place Players</p>
-        </form>
+        <div class="dropdown" id="Tools" style="display:none;">
+        <button onclick="myFunction()" class="dropbtn"> <i class="fas fa-toolbox"></i> Tools </button>
+            <div id="myDropdown" class="dropdown-content">
+                <p for="draw"><input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawFogTool();"> <i class="fas fa-pencil-ruler"></i> Draw Fog </p>
+                <p for="erase"><input type="radio" id="erase" name="Tools" value="erase" onclick="eraseFogTool();"> <i class="fas fa-eraser"></i> Erase Fog</p>
+                <p for="enemies"><input type="radio" id="enemies" name="Tools" value="enemies" onclick="setEnemyMode();"> <i class="fas fa-skull-crossbones"></i> Place Enemies</p>
+                <p for="players"><input type="radio" id="players" name="Tools" value="players" onclick="setPlayerMode();"> <i class="fas fa-hat-wizard"></i> Place Players</p>
+            </div>
+        </div>
+        
+        <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+        </script>
+        <br>
+
         <button type="button" class="btn btn-primary btn-round" style="display:none;" id="clearButton" onclick="clearFog()">Clear Fog</button>
         <div id="content"> </div>
         <div id="map_names" style="display:none;"> </div>
