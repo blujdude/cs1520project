@@ -308,7 +308,7 @@ function leaveGroup(){
         document.getElementById("map").style.display="none";
         document.getElementById("buttonHolder").innerHTML = '<h2><strong>Join a Group</strong></h2>\n<form>\n<label for="groupNumber">Group Code:</label>\n<input align="center" type="text" id="groupNumber" name="groupNumber">\n</form><br>\n<button type="button" class="btn btn-primary btn-round" onclick="joinGroup()">Join Group</button>';
         document.getElementById("fog").style.display="none";
-        document.getElementById("map_containter").style.display="none";
+        document.getElementById("map_container").style.display="none";
     });
 }
 
