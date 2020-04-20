@@ -23,12 +23,8 @@ def load_entity(client, entity_type, entity_id, parent_key=None):
     return entity
 
 
-def save_grid(username, map_name, grid, height, length, campaign, floor):
+def save_grid(username, map_name, grid, height, length, campaign, floor, isPublic):
     client = get_client()
-    print(username)
-    print(map_name)
-    print(campaign)
-    print(floor)
     map_id = (username+"_"+campaign+"_"+map_name+"_"+floor).replace(" ", "_")
     key = load_key(client, "GridEntity", map_id)
     entity = datastore.Entity(key, exclude_from_indexes=(('height', 'length', 'map_name', 'map')))
@@ -40,6 +36,7 @@ def save_grid(username, map_name, grid, height, length, campaign, floor):
     entity['length'] = length
     entity['campaign'] = campaign
     entity['floor'] = floor
+    entity['isPublic'] = isPublic
     client.put(entity)
 
 
