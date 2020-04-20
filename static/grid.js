@@ -18,7 +18,7 @@ var enemyMode=false;
 
 var doorMode = 0; //0 is no door, 1 is NS, 2 is EW door
 
-var DoorNS = [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+var doorNS = [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
@@ -43,9 +43,9 @@ var DoorNS = [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 
               0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
-              0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,]
+              0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,];
 
-var DoorEW = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+var doorEW = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -70,7 +70,7 @@ var DoorEW = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
+              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,];
 
 
 function buildCanvas(height, length, map){
@@ -154,7 +154,7 @@ function paint(event){
 
 }
 
-function drawDoor(x, y){
+function drawDoor(x, y, color=fillColor){
     var canvas=document.getElementById("map");
     
     var xIndex=Math.floor(x/blockSize); 
@@ -169,8 +169,33 @@ function drawDoor(x, y){
         door = doorEW;
     }
 
+    var imgData = ctx.createImageData(blockSize, blockSize);
+    var i;
+    for (i = 0; i < imgData.data.length; i += 4) {
+        if(door[i/4] == 1){
+            console.log("black");
+            imgData.data[i+0] = 0;
+            imgData.data[i+1] = 0;
+            imgData.data[i+2] = 0;
+            imgData.data[i+3] = 255;
+        }
+        else{
+            console.log("white");
+            imgData.data[i+0] = 241;
+            imgData.data[i+1] = 234;
+            imgData.data[i+2] = 218;
+            imgData.data[i+3] = 255;
+        }
+    }
+    ctx.putImageData(imgData, xIndex*blockSize, yIndex*blockSize);
+
+    //ctx.fillStyle=color;
+    //ctx.drawImage(door, xIndex*blockSize, yIndex*blockSize, blockSize, blockSize);
+
     ctx.fillStyle=color;
-    ctx.drawImage(door, xIndex*blockSize, yIndex*blockSize, blockSize, blockSize);
+    ctx.lineWidth=1.5;
+    ctx.strokeRect(xIndex*blockSize, yIndex*blockSize, blockSize, blockSize);
+    ctx.stroke();
 }
 
 function draw(x, y, color=fillColor){ //x and y are already normalized wrt the canvas
@@ -193,14 +218,20 @@ function draw(x, y, color=fillColor){ //x and y are already normalized wrt the c
 
 function drawTool(){
     fillColor=drawColor;
+    doorMode = 0; //0 is no door, 1 is NS, 2 is EW door
 }
 
 function eraseTool(){
     fillColor=blankColor;
+    doorMode = 0; //0 is no door, 1 is NS, 2 is EW door
 }
 
-function doorTool(){
-    (doorMode++)%3; //0 is no door, 1 is NS, 2 is EW door
+function doorNSTool(){
+    doorMode = 1; //0 is no door, 1 is NS, 2 is EW door
+}
+
+function doorEWTool(){
+    doorMode = 2; //0 is no door, 1 is NS, 2 is EW door
 }
 
 function saveCanvas(){
