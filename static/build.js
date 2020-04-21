@@ -32,7 +32,7 @@ function selectName(maps) {
     var names = []
     for (var i = 0; i < maps.length; i++) {
         parsed = JSON.parse(maps[i])
-        if (names.includes(parsed.map_name) == false && parsed.campaign == campaign){
+        if (names.includes(parsed.map_name) == false && parsed.campaign.replace(/ /g,"_") == campaign){
             names.push(parsed.map_name)
             myHTML = myHTML + "<option value="+(parsed.map_name).replace(/ /g,"_")+">"+parsed.map_name+"</option>\n";
         }
@@ -56,7 +56,7 @@ function selectFloor(maps) {
     var floors = []
     for (var i = 0; i < maps.length; i++) {
         parsed = JSON.parse(maps[i])
-        if (floors.includes(parsed.floor) == false && parsed.campaign == campaign && parsed.map_name == map_name){
+        if (floors.includes(parsed.floor) == false && parsed.campaign.replace(/ /g,"_") == campaign && parsed.map_name.replace(/ /g,"_") == map_name){
             floors.push(parsed.floor)
             myHTML = myHTML + "<option value="+(parsed.floor).replace(/ /g,"_")+">"+parsed.floor+"</option>\n";
         }

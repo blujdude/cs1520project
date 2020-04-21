@@ -107,6 +107,19 @@ function leaderPoll(){ //Any polling to be done on the DM side.  Also updates th
     })
 }
 
+function playerDrawMap(source1, source2) {
+    canvas=document.getElementById("map");
+     ctx=canvas.getContext("2d");
+    var img = new Image;
+    var img2 = new Image;
+    img.onload = function(){
+        ctx.drawImage(img,0,0);
+        ctx.drawImage(img2,0,0);
+    };
+    img.src = source1;
+    img2.src = source2;
+}
+
 function playerPoll(){ //Any polling to be done on the player side.
 
        if(groupID==-1) return;  //No idea how to end a setInterval, so we just don't do anything if we don't have a gid
@@ -126,9 +139,12 @@ function playerPoll(){ //Any polling to be done on the player side.
         document.getElementById("content").innerHTML = ret;
 
         cont = document.getElementById("map_container");
-        cont.height=result.height;
-        cont.width=result.width;
+        cont.style.height=result.height+"px";
+        cont.style.width=result.width+"px";
 
+        playerDrawMap(result.map, result.fog);
+
+/*
         canvas = document.getElementById("holder");  //Our comparison staging area
 
         canvas.height=result.height;
@@ -173,56 +189,7 @@ function playerPoll(){ //Any polling to be done on the player side.
                  img.src = result.map;
             }
         }
-
-
-        //repeat for fog
-        canvas = document.getElementById("holder");  //Our comparison staging area
-
-        canvas.height=result.height;
-        canvas.width=result.width;
-
-        var ctx=canvas.getContext("2d"); // Build comparison
-
-        var img2 = new Image;
-        img2.onload = function(){
-            ctx.drawImage(img2,0,0);
-        };
-        img2.src = result.fog;
-
-
-        //Now, we must compare the staged map and current map
-
-        var newData=ctx.getImageData(0,0,canvas.width, canvas.height);
-        canvas=document.getElementById("fog");
-        ctx=canvas.getContext("2d");
-        var oldData=ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-        if(newData.height==oldData.height && newData.width==oldData.width){
-            //do nothing
-        }
-        else{ //Pixel by pixel comparison.
-            var flag=0;
-            for(var i=0; i<oldData.data.length && !flag; i=i+4){
-                var oldHex="#"+("000000"+((oldData[i] << 16) | (oldData[i+1] << 8) | oldData[i+2]).toString(16)).slice(-6);
-                var newHex="#"+("000000"+((newData[i] << 16) | (newData[i+1] << 8) | newData[i+2]).toString(16)).slice(-6);
-
-                if(oldHex.localeCompare(newHex)!=0){ //Our pixels are not the same
-                    flag=1;
-                }
-            }
-
-            if(flag!=0){
-                //refresh map
-                var img2 = new Image;
-                img2.onload = function(){
-                ctx.drawImage(img2,0,0);
-                };
-                 img2.src = result.fog;
-            }
-        }   
-
-
-
+*/
     })
 }
 
@@ -264,13 +231,16 @@ function joinGroup(){
         }
         document.getElementById("content").innerHTML = ret;
         document.getElementById("buttonHolder").innerHTML = '<button class="submit-button btn btn-primary btn-round" onclick="leaveGroup()">Leave Group</button>';
-        document.getElementById("map").height=result.height;
-        document.getElementById("map").width=result.width;
-        document.getElementById("map_container").height=result.height;
-        document.getElementById("map_container").width=result.width;
-        document.getElementById("fog").height=result.height;
-        document.getElementById("fog").width=result.width;
+        document.getElementById("map").style.height=result.height+"px";
+        document.getElementById("map").style.width=result.width+"px";
+        document.getElementById("map_container").style.height=result.height+"px";
+        document.getElementById("map_container").style.width=result.width+"px";
+        //document.getElementById("fog").height=result.height;
+        //document.getElementById("fog").width=result.width;
 
+        playerDrawMap(result.map, result.fog);
+
+        /*
         var ctx=document.getElementById("map").getContext("2d"); //Get the map
         
         var img = new Image;
@@ -286,10 +256,11 @@ function joinGroup(){
             ctx2.drawImage(img2,0,0);
         };
         img2.src = result.fog;
+        */
 
         document.getElementById("map_container").style.display="block";
         document.getElementById("map").style.display="block";
-        document.getElementById("fog").style.display="block";
+        //document.getElementById("fog").style.display="block";
 
         setInterval(playerPoll, 3000);
     });
@@ -374,8 +345,8 @@ function loadCanvas(){
         board=new Array(height);
 
         var cont=document.getElementById("map_container");
-        cont.width=blocksize*length;
-        cont.height=blocksize*height;
+        cont.style.width=blocksize*length+"px";
+        cont.style.height=blocksize*height+"px";
 
         var canvas=document.getElementById("map");
         canvas.width=blocksize*length;
@@ -437,7 +408,7 @@ function selectName(maps) {
     var names = []
     for (var i = 0; i < maps.length; i++) {
         parsed = JSON.parse(maps[i])
-        if (names.includes(parsed.map_name) == false && parsed.campaign == campaign){
+        if (names.includes(parsed.map_name) == false && parsed.campaign.replace(/ /g,"_") == campaign){
             names.push(parsed.map_name)
             myHTML = myHTML + "<option value="+(parsed.map_name).replace(/ /g,"_")+">"+parsed.map_name+"</option>\n";
         }
@@ -461,7 +432,7 @@ function selectFloor(maps) {
     var floors = []
     for (var i = 0; i < maps.length; i++) {
         parsed = JSON.parse(maps[i])
-        if (floors.includes(parsed.floor) == false && parsed.campaign == campaign && parsed.map_name == map_name){
+        if (floors.includes(parsed.floor) == false && parsed.campaign.replace(/ /g,"_") == campaign && parsed.map_name.replace(/ /g,"_") == map_name){
             floors.push(parsed.floor)
             myHTML = myHTML + "<option value="+(parsed.floor).replace(/ /g,"_")+">"+parsed.floor+"</option>\n";
         }
@@ -509,7 +480,7 @@ function drawFog(x, y, color="black"){ //x and y are already normalized wrt the 
     
 
     var xIndex=Math.floor(x/blockSize); //
-    var yIndex=Math.floor(y/blockSize);
+    var yIndex=Math.floor(y/blockSize);draw
     var ctx=canvas.getContext("2d");
 
     if (tool == "draw") { 
