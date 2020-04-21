@@ -99,7 +99,7 @@ def add_floor():
     height = flask.request.form.get('height')
     length = flask.request.form.get('length')
     grid = None
-    ls.save_grid(username, map_name, grid, height, length, campaign, floor)
+    ls.save_grid(username, map_name, grid, height, length, campaign, floor, True)
 
     StringURL = ("/grid/"+campaign+"_"+map_name+"_"+floor).replace(" ", "_")
     return flask.redirect(StringURL)
