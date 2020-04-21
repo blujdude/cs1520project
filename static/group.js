@@ -1,6 +1,6 @@
 const blocksize=26; //Should be even
 var playerList;
-const playerColors=["blue", "green", "purple", "yellow", "orange", "pink", "turquoise", "yellowgreen"];
+const playerColors=["blue", "green", "purple", "turquoise", "orange", "pink", "yellow", "yellowgreen"];
 groupID=-1;
 var tool = "draw";
 var enemyMode = false;
