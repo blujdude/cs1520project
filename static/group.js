@@ -139,8 +139,8 @@ function playerPoll(){ //Any polling to be done on the player side.
         document.getElementById("content").innerHTML = ret;
 
         cont = document.getElementById("map_container");
-        cont.style.height=result.height+"px";
-        cont.style.width=result.width+"px";
+        cont.style.height=result.height;
+        cont.style.width=result.width;
 
         playerDrawMap(result.map, result.fog);
 
@@ -231,10 +231,10 @@ function joinGroup(){
         }
         document.getElementById("content").innerHTML = ret;
         document.getElementById("buttonHolder").innerHTML = '<button class="submit-button btn btn-primary btn-round" onclick="leaveGroup()">Leave Group</button>';
-        document.getElementById("map").style.height=result.height+"px";
-        document.getElementById("map").style.width=result.width+"px";
-        document.getElementById("map_container").style.height=result.height+"px";
-        document.getElementById("map_container").style.width=result.width+"px";
+        document.getElementById("map").height=result.height;
+        document.getElementById("map").width=result.width;
+        document.getElementById("map_container").style.height=result.height;
+        document.getElementById("map_container").style.width=result.width;
         //document.getElementById("fog").height=result.height;
         //document.getElementById("fog").width=result.width;
 
@@ -345,8 +345,8 @@ function loadCanvas(){
         board=new Array(height);
 
         var cont=document.getElementById("map_container");
-        cont.style.width=blocksize*length+"px";
-        cont.style.height=blocksize*height+"px";
+        cont.style.width=blocksize*length;
+        cont.style.height=blocksize*height;
 
         var canvas=document.getElementById("map");
         canvas.width=blocksize*length;
