@@ -10,7 +10,7 @@ class GroupSession(object):
         self.id = id  # Our key and our room ID
         self.leader = leader  # The DM
         self.players = players  # The list of players connected
-        self.map = map  # The map as it stands.  What to do with a placeholder?  A blank map?
+        self.map = map  # The map as it stands.  What to do with a placeholder? A blank map?
         self.fog = fog
         self.height = height
         self.width = width
@@ -70,7 +70,7 @@ def updateSession(id, map=None, fog=None, players=None, height=-1, width=-1):
 
 def getSession(id):  # Returns the session as an object
     client = datastore.Client()
-    item=loadItem(client, id)
+    item = loadItem(client, id)
     if(item is None):
         return -1
     return json_to_obj(item)

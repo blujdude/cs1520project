@@ -32,16 +32,48 @@
         <link rel="stylesheet" href="/static/css/grid.css">
 
         <body onload="buildCanvas({{ height }}, {{ length }}, {{ map }})">
+         <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn"> <i class="fas fa-toolbox"></i> Tools </button>
+            <div id="myDropdown" class="dropdown-content">
+            <p for="draw"><input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawTool();"> <i class="fas fa-pencil-ruler"></i> Draw </p>
+            <p for="erase"><input type="radio" id="erase" name="Tools" value="erase" onclick="eraseTool();"> <i class="fas fa-eraser"></i> Erase </p>
+            <p for="doorNS"><input type="radio" id="doorNS" name="Tools" value="doorNS" onclick="doorNSTool();"><i class="fas fa-doorNS"></i> NS Door </p>
+            <p for="doorEW"><input type="radio" id="doorEW" name="Tools" value="doorEW" onclick="doorEWTool();"><i class="fas fa-doorEW"></i> EW Door </p>
+            </div>
+        </div>
+
+        <script>
+            /* When the user clicks on the button,
+            toggle between hiding and showing the dropdown content */
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            // Close the dropdown menu if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+        </script>
+        <br><br>
 
         <form class = "center" id="Tools" method="post" action="/addfloor">
-            <input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawTool();">
+            <!-- <input type="radio" id="draw" name="Tools" value="draw" checked onclick="drawTool();">
             <label for="draw">Draw Tool</label><br>
             <input type="radio" id="erase" name="Tools" value="erase" onclick="eraseTool();">
             <label for="erase">Erase Tool</label><br>
             <input type="radio" id="doorNS" name="Tools" value="doorNS" onclick="doorNSTool();">
             <label for="door">NS Door Tool</label><br>
             <input type="radio" id="doorEW" name="Tools" value="doorEW" onclick="doorEWTool();">
-            <label for="door">EW Door Tool</label><br>
+            <label for="door">EW Door Tool</label><br> -->
             <label for="floor">Floor Name:</label>
             <input type="text" id="floor" name="floor"><br><br>
             <input type="hidden" id="height" name="height" value={{height}}>
